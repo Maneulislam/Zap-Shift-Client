@@ -1,7 +1,6 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -28,7 +27,6 @@ const Brands = () => {
             <h4 className='text-3xl font-bold text-center mb-8'>We've helped thousands of sales teams</h4>
 
             <Swiper
-                // install Swiper modules
                 modules={[Autoplay]}
                 spaceBetween={30}
                 slidesPerView={4}
