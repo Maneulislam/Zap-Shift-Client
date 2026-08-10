@@ -2,15 +2,10 @@ import Logo from "../../../components/Logo/Logo";
 
 const Footer = () => {
     return (
-        <footer className="footer footer-horizontal footer-center text-primary-content p-10">
+        <footer className="footer footer-horizontal bg-black footer-center bg text-primary-content p-10">
             <aside>
 
-                <div className="flex items-center">
-                    <div className="relative">
-                        <Logo></Logo>
-                    </div>
-                    <div className="text-xl absolute pl-5 pt-4 font-bold">ZapShift</div>
-                </div>
+                <Logo></Logo>
 
                 <p className="font-bold">
                     ACME Industries Ltd.
