@@ -22,7 +22,7 @@ import start_people from '../../../assets/brands/start_people.png'
 const Brands = () => {
     return (
 
-        <div className='max-w-10/12 mx-auto mb-14'>
+        <div className='max-w-9/12 mx-auto mb-14'>
 
             <h4 className='text-3xl font-bold text-center mb-8'>We've helped thousands of sales teams</h4>
 
