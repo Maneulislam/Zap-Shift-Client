@@ -41,9 +41,9 @@ const Reviews = ({ reviewsPromise }) => {
                     spaceBetween={30}
                     loop={true}
                     // coverflowEffect={{
-                    //     rotate: 0,
-                    //     stretch: 0,
-                    //     depth: 100,
+                    //     rotate: 20,
+                    //     stretch: 50,
+                    //     depth: 200,
                     //     modifier: 1,
                     //     slideShadows: true,
                     // }}

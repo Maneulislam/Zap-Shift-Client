@@ -5,7 +5,9 @@ const VerticalLine = () => {
     return (
         <div className="w-9/12 max-w-7xl mx-auto mb-14">
 
-            <div className="border-t border-dashed border-gray-500 w-full mb-10 md:mb-14"></div>
+            <div className="border-t border-dashed border-gray-500 w-full mb-10 md:mb-14">
+
+            </div>
 
             <div className="space-y-6 sm:space-y-10">
 

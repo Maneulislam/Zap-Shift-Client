@@ -35,8 +35,8 @@ const NavBar = () => {
             </div>
             <div className="navbar-end gap-3">
                 <a className="btn">Sign In</a>
-                <a className="btn bg-primary">Sign Up</a>
-                <a className="text-4xl"><BsArrowUpRightCircleFill />
+                <a className="btn bg-primary">Be a rider</a>
+                <a className="text-4xl bg-primary rounded-4xl"><BsArrowUpRightCircleFill />
                 </a>
             </div>
         </div>
