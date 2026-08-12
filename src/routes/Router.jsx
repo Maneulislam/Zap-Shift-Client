@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home/Home";
 import Coverage from "../pages/Coverage/Coverage";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import Error from "../pages/Error/Error";
 
 
 export const router = createBrowserRouter([
@@ -24,6 +25,11 @@ export const router = createBrowserRouter([
             {
                 path: 'about-us',
                 Component: AboutUs,
+            },
+
+            {
+                path: 'error',
+                Component: Error,
             },
 
         ],

@@ -5,6 +5,14 @@ import { FaFacebook, FaXTwitter } from "react-icons/fa6";
 import { GrYoutube } from "react-icons/gr";
 
 const Footer = () => {
+
+
+    const navLinkStyle = ({ isActive }) =>
+        isActive
+            ? "bg-primary rounded-2xl"
+            : "";
+
+
     return (
         <footer className="footer footer-horizontal bg-black footer-center text-primary-content p-6 sm:p-8 lg:p-16">
             <aside className="flex flex-col items-center px-4">
@@ -18,12 +26,26 @@ const Footer = () => {
 
             <div className="w-full px-4">
                 <ul className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 text-sm sm:text-base">
-                    <li><NavLink to="/services" className="hover:text-gray-400 transition-colors">Services</NavLink></li>
-                    <li><NavLink to="/coverage" className="hover:text-gray-400 transition-colors">Coverage</NavLink></li>
-                    <li><NavLink to="/about" className="hover:text-gray-400 transition-colors">About Us</NavLink></li>
-                    <li><NavLink to="/pricing" className="hover:text-gray-400 transition-colors">Pricing</NavLink></li>
-                    <li><NavLink to="/blog" className="hover:text-gray-400 transition-colors">Blog</NavLink></li>
-                    <li><NavLink to="/contact" className="hover:text-gray-400 transition-colors">Contact</NavLink></li>
+                    <li><NavLink to="/services"
+                        className={({ isActive }) =>
+                            isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
+                        }
+                    >Services</NavLink></li>
+                    <li><NavLink to="/coverage" className={({ isActive }) =>
+                        isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
+                    }>Coverage</NavLink></li>
+                    <li><NavLink to="/about-us" className={({ isActive }) =>
+                        isActive ? "text-primary font-semibold" : "text-gray-300   hover:text-white"
+                    }>About Us</NavLink></li>
+                    <li><NavLink to="/pricing" className={({ isActive }) =>
+                        isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
+                    }>Pricing</NavLink></li>
+                    <li><NavLink to="/blog" className={({ isActive }) =>
+                        isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
+                    }>Blog</NavLink></li>
+                    <li><NavLink to="/contact" className={({ isActive }) =>
+                        isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
+                    }>Contact</NavLink></li>
                 </ul>
             </div>
 
