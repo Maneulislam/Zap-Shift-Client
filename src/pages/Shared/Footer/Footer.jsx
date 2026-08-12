@@ -14,7 +14,7 @@ const Footer = () => {
                 </p>
             </aside>
 
-            <div className="w-full max-w-6xl border-t-2 border-dashed border-gray-700 my-4"></div>
+            <div className="w-full max-w-6xl border-t-2 border-dashed border-gray-700"></div>
 
             <div className="w-full px-4">
                 <ul className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 text-sm sm:text-base">
@@ -27,7 +27,7 @@ const Footer = () => {
                 </ul>
             </div>
 
-            <div className="w-full max-w-6xl border-t-2 border-dashed border-gray-700 my-4"></div>
+            <div className="w-full max-w-6xl border-t-2 border-dashed border-gray-700 "></div>
 
             <nav className="flex flex-col items-center">
                 <div className="grid grid-flow-col gap-6 sm:gap-8">

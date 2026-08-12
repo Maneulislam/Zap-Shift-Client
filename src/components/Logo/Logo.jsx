@@ -3,7 +3,7 @@ const Logo = () => {
     return (
         <div className='flex items-end'>
             <img src={logo} alt="" />
-            <h3 className='text-2xl font-bold -ms-4'>ZapShift</h3>
+            <h3 className='text-2xl font-extrabold -ms-4'>ZapShift</h3>
         </div>
     );
 };
