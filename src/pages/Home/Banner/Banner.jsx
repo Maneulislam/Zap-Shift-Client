@@ -10,6 +10,7 @@ const Banner = () => {
         <Carousel className="mb-14"
             autoPlay={true}
             infiniteLoop={true}
+
         >
             <div className="relative">
                 <img src={bannerImg1} />
