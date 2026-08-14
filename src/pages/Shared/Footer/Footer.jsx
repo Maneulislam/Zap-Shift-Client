@@ -6,13 +6,6 @@ import { GrYoutube } from "react-icons/gr";
 
 const Footer = () => {
 
-
-    const navLinkStyle = ({ isActive }) =>
-        isActive
-            ? "bg-primary rounded-2xl"
-            : "";
-
-
     return (
         <footer className="footer footer-horizontal bg-black footer-center text-primary-content p-6 sm:p-8 lg:p-16">
             <aside className="flex flex-col items-center px-4">
