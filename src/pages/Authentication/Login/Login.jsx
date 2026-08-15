@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
 
@@ -9,10 +10,20 @@ const Login = () => {
         formState: { errors },
     } = useForm();
 
+    const { signInUser } = useAuth();
+
 
 
     const handleLogin = data => {
         console.log(data);
+
+        signInUser(data.email, data.password)
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.log(error);
+            })
 
     };
 
@@ -51,7 +62,7 @@ const Login = () => {
                             type="email"
                             name="email"
                             placeholder="Email"
-                            className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-[#B8E93F] focus:outline-none"
+                            className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
                             {...register("email", { required: true })}
                         />
@@ -72,7 +83,7 @@ const Login = () => {
                             type="password"
                             name="password"
                             placeholder="Password"
-                            className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-[#B8E93F] focus:outline-none"
+                            className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
                             {...register("password", { required: true })}
                         />
