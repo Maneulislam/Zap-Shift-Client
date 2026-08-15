@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 
@@ -7,7 +6,6 @@ const Login = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm();
 
@@ -87,7 +85,7 @@ const Login = () => {
                     <div className="pt-0">
                         <button
                             type="button"
-                            className="text-xs text-gray-500 underline hover:text-gray-800"
+                            className="text-xs text-gray-500 underline font-semibold hover:text-gray-800"
                         >
                             Forget Password?
                         </button>
@@ -105,7 +103,7 @@ const Login = () => {
                     Don't have any account?{" "}
                     <a
                         href="/register"
-                        className="text-[#8AAE1F] hover:underline font-medium"
+                        className="text-primary font-bold hover:underline "
                     >
                         Register
                     </a>
@@ -124,7 +122,7 @@ const Login = () => {
                 <button
                     type="button"
                     onClick={handleGoogleLogin}
-                    className="btn w-full min-h-8 h-8 rounded-md bg-[#e9edf3] hover:bg-[#dfe4eb] border-none text-black shadow-none text-xs font-medium"
+                    className="btn w-full min-h-8 h-8 rounded-md bg-[#e9edf3] hover:bg-[#dfe4eb] border-none text-black shadow-none text-xs font-bold"
                 >
                     <FcGoogle className="text-base" />
                     Login with google
