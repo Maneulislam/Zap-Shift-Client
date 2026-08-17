@@ -12,7 +12,7 @@ const Register = () => {
     } = useForm();
 
 
-    const { registerUser } = useAuth();
+    const { registerUser, signInWithGoogle } = useAuth();
 
 
 
@@ -23,6 +23,7 @@ const Register = () => {
             .then(result =>
                 console.log(result)
             )
+
             .catch(error => {
                 console.log(error)
             })
@@ -31,6 +32,14 @@ const Register = () => {
 
     const handleGoogleRegister = () => {
         console.log("Google Register");
+
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     };
 
     return (

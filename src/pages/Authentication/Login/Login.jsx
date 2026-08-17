@@ -10,7 +10,7 @@ const Login = () => {
         formState: { errors },
     } = useForm();
 
-    const { signInUser } = useAuth();
+    const { signInUser, signInWithGoogle } = useAuth();
 
 
 
@@ -29,6 +29,14 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         console.log("Google login");
+
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     };
 
     return (
