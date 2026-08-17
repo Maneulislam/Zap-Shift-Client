@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Login = () => {
 
@@ -15,6 +15,8 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    const location = useLocation()
+
 
 
     const handleLogin = data => {
@@ -27,7 +29,7 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-        navigate('/')
+        navigate(location.state || '/')
 
     };
 
@@ -41,7 +43,7 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-        navigate('/')
+        navigate(location.state || '/')
     };
 
     return (
@@ -125,12 +127,13 @@ const Login = () => {
 
                 <div className="mt-3 text-xs text-gray-500">
                     Don't have any account?{" "}
-                    <a
-                        href="/register"
+                    <Link
+                        state={location.state}
+                        to="/register"
                         className="text-primary font-bold hover:underline "
                     >
                         Register
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-3 my-3">

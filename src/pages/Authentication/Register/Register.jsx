@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 
 const Register = () => {
@@ -11,6 +11,8 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+    const location = useLocation();
 
 
     const navigate = useNavigate();
@@ -51,7 +53,7 @@ const Register = () => {
 
                     .then(() => {
                         console.log("After update user profile");
-                        navigate("/login");
+                        navigate(location.state || "/");
                     })
                     .catch(error => console.log(error))
 
@@ -70,6 +72,7 @@ const Register = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
+                navigate(location.state || "/");
             })
             .catch(error => {
                 console.log(error);
@@ -96,14 +99,7 @@ const Register = () => {
                     </p>
                 </div>
 
-                {/* <div className="required">
-                    <img
-                        // {...register("image", { required: true })}
-                        src={imageUploadIcon} alt="" />
 
-                    {/* {errors.image?.type === 'required' && <span className="text-red-500">Image is required</span>} 
-
-                </div> */}
 
                 <form onSubmit={handleSubmit(handleRegister)} className="space-y-2">
 
@@ -206,12 +202,13 @@ const Register = () => {
 
                 <div className="mt-3 text-xs text-gray-500">
                     Already have an account?{" "}
-                    <a
-                        href="/register"
+                    <Link
+                        state={location.state}
+                        to="/login"
                         className="text-primary font-bold hover:underline "
                     >
                         Login
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-3 my-2">

@@ -7,6 +7,8 @@ import Error from "../pages/Error/Error";
 import AuthenticationLayOut from "../layouts/AuthenticationLayOut";
 import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
+import PrivateRoute from "./PrivateRoute";
+import Rider from "../pages/Rider/Rider";
 
 
 export const router = createBrowserRouter([
@@ -26,6 +28,11 @@ export const router = createBrowserRouter([
             },
 
             {
+                path: 'rider',
+                element: <PrivateRoute><Rider></Rider></PrivateRoute>
+            },
+
+            {
                 path: 'about-us',
                 Component: AboutUs,
             },
@@ -38,6 +45,9 @@ export const router = createBrowserRouter([
         ],
     },
 
+
+
+    // Authentication Layout
 
     {
         path: '/',
