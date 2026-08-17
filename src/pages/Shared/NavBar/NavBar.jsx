@@ -1,8 +1,22 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Logo from "../../../components/Logo/Logo";
 import { BsArrowUpRightCircleFill } from "react-icons/bs";
+import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
+
+
+    const { user, logOut } = useAuth();
+
+
+    const handleLogout = () => {
+        logOut()
+            .then()
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
 
     const navLinkStyle = ({ isActive }) =>
         isActive
@@ -43,7 +57,10 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-2 md:gap-3">
-                <a className="btn">Sign In</a>
+                {
+                    user ? <a onClick={handleLogout} className="btn">Sign Out</a> :
+                        <Link to={'/login'} className="btn">Sign In</Link>
+                }
                 <a className="btn bg-primary md:btn-md sm:inline-flex hidden ">Be a rider</a>
                 <a className="text-4xl bg-primary rounded-4xl"><BsArrowUpRightCircleFill />
                 </a>

@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import imageUploadIcon from '../../../assets/image-upload-icon.png'
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
 const Register = () => {
 
@@ -12,23 +13,56 @@ const Register = () => {
     } = useForm();
 
 
-    const { registerUser, signInWithGoogle } = useAuth();
+    const navigate = useNavigate();
+
+
+    const { registerUser, signInWithGoogle, updateUserProfile } = useAuth();
 
 
 
     const handleRegister = (data) => {
         console.log(data);
 
+        const profileImage = data.photo[0];
+
         registerUser(data.email, data.password)
-            .then(result =>
-                console.log(result)
-            )
+            .then((result) => {
+                console.log(result);
 
-            .catch(error => {
-                console.log(error)
+                const formData = new FormData();
+                formData.append("image", profileImage);
+
+                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.
+                    VITE_image_host_key}`;
+
+                axios.post(image_API_URL, formData)
+                    .then(res => {
+                        console.log("After image upload", res.data.data.url);
+
+
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: res.data.data.url
+                        }
+
+
+                        updateUserProfile(userProfile)
+                    })
+
+                    .then(() => {
+                        console.log("After update user profile");
+                        navigate("/login");
+                    })
+                    .catch(error => console.log(error))
+
+
             })
-
+            .catch((error) => {
+                console.log(error);
+            });
     };
+
+
 
     const handleGoogleRegister = () => {
         console.log("Google Register");
@@ -40,6 +74,8 @@ const Register = () => {
             .catch(error => {
                 console.log(error);
             })
+
+        navigate('/')
     };
 
     return (
@@ -60,16 +96,38 @@ const Register = () => {
                     </p>
                 </div>
 
-                <div className="required">
+                {/* <div className="required">
                     <img
                         // {...register("image", { required: true })}
                         src={imageUploadIcon} alt="" />
 
-                    {/* {errors.image?.type === 'required' && <span className="text-red-500">Image is required</span>} */}
+                    {/* {errors.image?.type === 'required' && <span className="text-red-500">Image is required</span>} 
 
-                </div>
+                </div> */}
 
                 <form onSubmit={handleSubmit(handleRegister)} className="space-y-2">
+
+
+                    <div>
+                        <label className="label p-0 mb-1">
+                            <span className="label-text text-xs font-medium text-gray-700">
+                                Upload Photo
+                            </span>
+                        </label>
+
+                        <input
+                            type="file"
+                            name="photo"
+                            className="file-input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
+
+                            {...register("photo", { required: true })}
+                        />
+
+                        {errors.photo?.type === 'required' && <span className="text-red-500">Photo is required</span>}
+
+                    </div>
+
+
 
                     <div>
                         <label className="label p-0 mb-1">

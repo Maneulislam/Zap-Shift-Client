@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const Login = () => {
 
@@ -11,6 +12,8 @@ const Login = () => {
     } = useForm();
 
     const { signInUser, signInWithGoogle } = useAuth();
+
+    const navigate = useNavigate();
 
 
 
@@ -24,6 +27,7 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
+        navigate('/')
 
     };
 
@@ -37,6 +41,7 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
+        navigate('/')
     };
 
     return (
