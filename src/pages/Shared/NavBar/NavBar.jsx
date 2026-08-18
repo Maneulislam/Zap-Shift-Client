@@ -26,9 +26,10 @@ const NavBar = () => {
     const links = [
         <li><NavLink to={'/services'} className={navLinkStyle}>Services</NavLink></li>,
         <li><NavLink to={'/coverage'} className={navLinkStyle}>Coverage</NavLink></li>,
-        <li><NavLink to={'/about-us'} className={navLinkStyle}>About Us</NavLink></li>,
         <li><NavLink to={'/pricing'} className={navLinkStyle}>Pricing</NavLink></li>,
-        <li><NavLink to={'/be-rider'} className={navLinkStyle}>Be a rider</NavLink></li>
+        <li><NavLink to={'/send-parcel'} className={navLinkStyle}>Send Parcel</NavLink></li>,
+        <li><NavLink to={'/about-us'} className={navLinkStyle}>About Us</NavLink></li>,
+
 
 
     ]

@@ -24,18 +24,25 @@ const Footer = () => {
                             isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
                         }
                     >Services</NavLink></li>
+
                     <li><NavLink to="/coverage" className={({ isActive }) =>
                         isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
                     }>Coverage</NavLink></li>
-                    <li><NavLink to="/about-us" className={({ isActive }) =>
-                        isActive ? "text-primary font-semibold" : "text-gray-300   hover:text-white"
-                    }>About Us</NavLink></li>
+
+
+
                     <li><NavLink to="/pricing" className={({ isActive }) =>
                         isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
                     }>Pricing</NavLink></li>
-                    <li><NavLink to="/blog" className={({ isActive }) =>
+
+                    <li><NavLink to="/send-parcel" className={({ isActive }) =>
                         isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
-                    }>Blog</NavLink></li>
+                    }>Send Parcel</NavLink></li>
+
+                    <li><NavLink to="/about-us" className={({ isActive }) =>
+                        isActive ? "text-primary font-semibold" : "text-gray-300   hover:text-white"
+                    }>About Us</NavLink></li>
+
                     <li><NavLink to="/contact" className={({ isActive }) =>
                         isActive ? "text-primary font-semibold" : "text-gray-300 hover:text-white"
                     }>Contact</NavLink></li>

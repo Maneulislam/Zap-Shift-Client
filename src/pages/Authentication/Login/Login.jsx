@@ -68,7 +68,7 @@ const Login = () => {
 
                     <div>
                         <label className="label p-0 mb-1">
-                            <span className="label-text text-xs font-medium text-gray-700">
+                            <span className="label-text text-xs font-bold text-gray-700">
                                 Email
                             </span>
                         </label>
@@ -89,7 +89,7 @@ const Login = () => {
 
                     <div>
                         <label className="label p-0 mb-1">
-                            <span className="label-text text-xs font-medium text-gray-700">
+                            <span className="label-text text-xs font-bold text-gray-700">
                                 Password
                             </span>
                         </label>

@@ -106,7 +106,7 @@ const Register = () => {
 
                     <div>
                         <label className="label p-0 mb-1">
-                            <span className="label-text text-xs font-medium text-gray-700">
+                            <span className="label-text text-xs font-bold text-gray-700">
                                 Upload Photo
                             </span>
                         </label>
@@ -127,7 +127,7 @@ const Register = () => {
 
                     <div>
                         <label className="label p-0 mb-1">
-                            <span className="label-text text-xs font-medium text-gray-700">
+                            <span className="label-text text-xs font-bold text-gray-700">
                                 Name
                             </span>
                         </label>
@@ -150,7 +150,7 @@ const Register = () => {
 
                     <div>
                         <label className="label p-0 mb-1">
-                            <span className="label-text text-xs font-medium text-gray-700">
+                            <span className="label-text text-xs font-bold text-gray-700">
                                 Email
                             </span>
                         </label>
@@ -171,7 +171,7 @@ const Register = () => {
 
                     <div>
                         <label className="label p-0 mb-1">
-                            <span className="label-text text-xs font-medium text-gray-700">
+                            <span className="label-text text-xs font-bold text-gray-700">
                                 Password
                             </span>
                         </label>
