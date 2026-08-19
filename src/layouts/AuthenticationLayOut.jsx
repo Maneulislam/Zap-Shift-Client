@@ -5,7 +5,7 @@ import { Outlet } from 'react-router';
 const AuthenticationLayOut = () => {
     return (
         <div className=" w-full flex items-center justify-center">
-            <div className="flex flex-col lg:flex-row w-full max-w-8xl bg-white rounded-xl overflow-hidden shadow-sm min-h-screen">
+            <div className="flex flex-col lg:flex-row md:flex-row w-full max-w-8xl bg-white rounded-xl overflow-hidden shadow-sm min-h-screen">
 
                 <div className="w-full lg:w-1/2 flex flex-col justify-between p-6 sm:p-10 md:p-12 bg-white">
                     <div className="mb-6 lg:mb-10">

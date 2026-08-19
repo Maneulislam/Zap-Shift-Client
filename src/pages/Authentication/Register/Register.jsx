@@ -113,7 +113,6 @@ const Register = () => {
 
                         <input
                             type="file"
-                            name="photo"
                             className="file-input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
                             {...register("photo", { required: true })}
@@ -134,7 +133,6 @@ const Register = () => {
 
                         <input
                             type="text"
-                            name="name"
                             placeholder="Name"
                             className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
@@ -157,7 +155,6 @@ const Register = () => {
 
                         <input
                             type="email"
-                            name="email"
                             placeholder="Email"
                             className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
@@ -178,7 +175,6 @@ const Register = () => {
 
                         <input
                             type="password"
-                            name="password"
                             placeholder="Password"
                             className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 

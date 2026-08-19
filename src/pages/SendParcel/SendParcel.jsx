@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const SendParcel = () => {
 
-    const [selected, setSelected] = useState('document');
+
 
 
     const {
@@ -283,7 +282,7 @@ const SendParcel = () => {
                 </form>
 
 
-                <p className="pl-4 my-12"><li>PickUp Time 4pm-7pm Approx.</li></p>
+                <p className="pl-4 my-12"><li>PickUp Time: 4pm-7pm Approx.</li></p>
 
 
                 <button

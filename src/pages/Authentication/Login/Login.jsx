@@ -43,7 +43,7 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-        navigate(location.state || '/')
+        navigate(location.state || '/login')
     };
 
     return (
@@ -75,7 +75,6 @@ const Login = () => {
 
                         <input
                             type="email"
-                            name="email"
                             placeholder="Email"
                             className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
@@ -96,7 +95,6 @@ const Login = () => {
 
                         <input
                             type="password"
-                            name="password"
                             placeholder="Password"
                             className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
@@ -109,12 +107,12 @@ const Login = () => {
                     </div>
 
                     <div className="pt-0">
-                        <button
-                            type="button"
+                        <Link
+                            to={'/forget-password'}
                             className="text-xs text-gray-500 underline font-semibold hover:text-gray-800"
                         >
                             Forget Password?
-                        </button>
+                        </Link>
                     </div>
 
                     <button

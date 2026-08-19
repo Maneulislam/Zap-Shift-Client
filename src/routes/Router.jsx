@@ -10,6 +10,7 @@ import Register from "../pages/Authentication/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Rider from "../pages/Rider/Rider";
 import SendParcel from "../pages/SendParcel/SendParcel";
+import ForgetPassword from "../pages/Authentication/ForgetPassword/ForgetPassword";
 
 
 export const router = createBrowserRouter([
@@ -37,6 +38,8 @@ export const router = createBrowserRouter([
                 path: 'send-parcel',
                 element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>
             },
+
+
 
             {
                 path: 'about-us',
@@ -66,7 +69,11 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: Register,
-            }
+            },
+            {
+                path: 'forget-password',
+                Component: ForgetPassword,
+            },
         ]
     },
 
