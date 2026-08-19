@@ -27,7 +27,7 @@ const ForgetPassword = () => {
                 console.log(error);
             })
 
-        navigate(location.state || '/login')
+        navigate(location.state || '/enter-code')
 
     };
 

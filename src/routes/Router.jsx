@@ -11,6 +11,8 @@ import PrivateRoute from "./PrivateRoute";
 import Rider from "../pages/Rider/Rider";
 import SendParcel from "../pages/SendParcel/SendParcel";
 import ForgetPassword from "../pages/Authentication/ForgetPassword/ForgetPassword";
+import EnterCode from "../pages/Authentication/ForgetPassword/EnterCode";
+import ResetPassword from "../pages/Authentication/ForgetPassword/ResetPassword";
 
 
 export const router = createBrowserRouter([
@@ -73,6 +75,15 @@ export const router = createBrowserRouter([
             {
                 path: 'forget-password',
                 Component: ForgetPassword,
+            },
+            {
+                path: 'enter-code',
+                Component: EnterCode,
+            },
+
+            {
+                path: 'reset-pass',
+                Component: ResetPassword
             },
         ]
     },
