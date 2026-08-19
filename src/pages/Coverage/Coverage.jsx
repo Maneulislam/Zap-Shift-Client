@@ -31,7 +31,7 @@ const Coverage = () => {
 
 
     return (
-        <div className='card bg-white card-border p-16 mb-16' >
+        <div className='card bg-white  p-16 mb-16' >
 
             <div className='space-y-14'>
                 <h2 className='text-5xl font-bold'>We are available in 64 districts</h2>

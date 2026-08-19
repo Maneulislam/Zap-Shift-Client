@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import parcel from "../../assets/parcel-icon.jpg"
 
 const SendParcel = () => {
 
@@ -12,11 +13,15 @@ const SendParcel = () => {
     } = useForm()
 
     return (
-        <div className='card bg-white shadow-sm mb-16'>
+        <div className='card bg-white  mb-16'>
 
             <div className='px-28 py-20'>
 
-                <h1 className='text-5xl font-extrabold mb-16'>Send A Parcel</h1>
+                <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start text-center sm:text-left gap-3 sm:gap-5 mb-8 sm:mb-16 ">
+                    <img className="w-28 h-28 object-contain" src={parcel} alt="" />
+                    <h1 className='text-5xl font-extrabold '>Send A Parcel</h1>
+
+                </div>
                 <h6 className='text-2xl font-extrabold'>Enter your parcel details</h6>
 
                 <div className="border-t-2 border-gray-200 my-8">

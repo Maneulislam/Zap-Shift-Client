@@ -31,7 +31,7 @@ const AboutUs = () => {
     const tabs = ['Story', 'Mission', 'Success', 'Team & Others']
 
     return (
-        <div className='card rounded-3xl bg-white card-border p-16 mb-16' >
+        <div className='card rounded-3xl bg-white  p-16 mb-16' >
 
             <div className='space-y-5'>
                 <h2 className='text-5xl font-extrabold'>About Us</h2>
