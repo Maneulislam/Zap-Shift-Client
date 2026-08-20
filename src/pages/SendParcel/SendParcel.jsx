@@ -1,16 +1,40 @@
 import { useForm } from "react-hook-form";
 import parcel from "../../assets/parcel-icon.jpg"
+import { useLoaderData } from "react-router";
 
 const SendParcel = () => {
-
-
-
 
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors },
-    } = useForm()
+    } = useForm();
+
+    const servicesPoints = useLoaderData();
+    const duplicateRegions = servicesPoints.map((r) => r.region)
+    const regions = [...new Set(duplicateRegions)]
+    const senderRegion = watch("senderRegion");
+    const receiverRegion = watch("receiverRegion")
+
+
+    const districtsByRegion = region => {
+        const regionDistricts = servicesPoints.filter(p => p.region === region);
+        const districts = regionDistricts.map(d => d.district);
+        return districts;
+    }
+
+
+
+
+
+    const handleParcelSend = data => {
+        console.log(data);
+        const sameDistrict = data.senderDistrict === data.receiverDistrict;
+        console.log(sameDistrict);
+    }
+
+
 
     return (
         <div className='card bg-white  mb-16'>
@@ -18,7 +42,7 @@ const SendParcel = () => {
             <div className='px-28 py-20'>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start text-center sm:text-left gap-3 sm:gap-5 mb-8 sm:mb-16 ">
-                    <img className="w-28 h-28 object-contain" src={parcel} alt="" />
+                    <img className="w-40 h-20 object-contain" src={parcel} alt="" />
                     <h1 className='text-5xl font-extrabold '>Send A Parcel</h1>
 
                 </div>
@@ -29,7 +53,7 @@ const SendParcel = () => {
                 </div>
 
 
-                <form>
+                <form onSubmit={handleSubmit(handleParcelSend)}>
 
                     {/* Radio button */}
 
@@ -38,6 +62,7 @@ const SendParcel = () => {
                             <input
                                 type="radio"
                                 value="document"
+                                defaultChecked
                                 className="radio radio-success radio-sm border-2 checked:bg-white checked:border-green-600"
                                 {...register("docType", { required: true })}
                             />
@@ -48,7 +73,7 @@ const SendParcel = () => {
                             <input
                                 type="radio"
                                 value="not-document"
-                                className="radio radio-success radio-sm border-2 border-gray-300 bg-gray-100 checked:bg-white checked:border-green-600"
+                                className="radio radio-success radio-sm border-2 checked:bg-white checked:border-green-600"
                                 {...register("docType", { required: true })}
                             />
                             <span className="text-sm font-semibold text-slate-800">Not-Document</span>
@@ -164,6 +189,33 @@ const SendParcel = () => {
                                 {errors.senderPhone?.type === 'required' && <span className="text-red-500 text-xs">Sender Phone No is required</span>}
                             </div>
 
+
+
+                            <div>
+                                <label className="label p-0 mb-1">
+                                    <span className="label-text text-xs font-bold text-gray-700">
+                                        Your Region
+                                    </span>
+                                </label>
+                                <select
+                                    className="select select-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
+                                    defaultValue=""
+                                    {...register("senderRegion", { required: true })}
+                                >
+                                    <option value="" disabled>Select your Region</option>
+
+                                    {
+                                        regions.map((r, index) => (
+                                            <option key={index} value={r}>{r}</option>
+                                        ))
+                                    }
+
+
+                                </select>
+                                {errors.senderRegion?.type === 'required' && <span className="text-red-500 text-xs">Your Region is required</span>}
+                            </div>
+
+
                             <div>
                                 <label className="label p-0 mb-1">
                                     <span className="label-text text-xs font-bold text-gray-700">
@@ -176,9 +228,15 @@ const SendParcel = () => {
                                     {...register("senderDistrict", { required: true })}
                                 >
                                     <option value="" disabled>Select your District</option>
-                                    <option value="Dhaka">Dhaka</option>
-                                    <option value="Chittagong">Chittagong</option>
-                                    <option value="Sylhet">Sylhet</option>
+
+                                    {
+                                        districtsByRegion(senderRegion).map((d, index) => (
+                                            <option key={index} value={d}>{d}</option>
+                                        ))
+                                    }
+
+
+
                                 </select>
                                 {errors.senderDistrict?.type === 'required' && <span className="text-red-500 text-xs">Your District is required</span>}
                             </div>
@@ -249,6 +307,35 @@ const SendParcel = () => {
                                 {errors.receiverPhone?.type === 'required' && <span className="text-red-500 text-xs">Receiver Contact No is required</span>}
                             </div>
 
+
+
+                            <div>
+                                <label className="label p-0 mb-1">
+                                    <span className="label-text text-xs font-bold text-gray-700">
+                                        Receiver Region
+                                    </span>
+                                </label>
+                                <select
+                                    className="select select-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
+                                    defaultValue=""
+                                    {...register("receiverRegion", { required: true })}
+                                >
+                                    <option value="" disabled>Select Receiver Region</option>
+
+                                    {
+                                        regions.map((r, index) => (
+                                            <option key={index} value={r}>{r}</option>
+                                        ))
+                                    }
+
+
+                                </select>
+                                {errors.senderRegion?.type === 'required' && <span className="text-red-500 text-xs">Receiver Region is required</span>}
+                            </div>
+
+
+
+
                             <div>
                                 <label className="label p-0 mb-1">
                                     <span className="label-text text-xs font-bold text-gray-700">
@@ -260,10 +347,15 @@ const SendParcel = () => {
                                     defaultValue=""
                                     {...register("receiverDistrict", { required: true })}
                                 >
-                                    <option value="" disabled>Select your District</option>
-                                    <option value="Dhaka">Dhaka</option>
-                                    <option value="Chittagong">Chittagong</option>
-                                    <option value="Sylhet">Sylhet</option>
+                                    <option value="" disabled>Select Receiver District</option>
+
+                                    {
+                                        districtsByRegion(receiverRegion).map((d, index) => (
+                                            <option key={index} value={d}>{d}</option>
+                                        ))
+                                    }
+
+
                                 </select>
                                 {errors.receiverDistrict?.type === 'required' && <span className="text-red-500 text-xs">Receiver District is required</span>}
                             </div>
@@ -281,24 +373,27 @@ const SendParcel = () => {
                                 ></textarea>
                             </div>
                         </div>
+
                     </div>
+
+
+                    <p className="pl-4 my-12"><li>PickUp Time: 4pm-7pm Approx.</li></p>
+
+
+                    <button
+                        type="submit"
+                        className="btn btn-primary text-black w-full sm:w-auto px-6 sm:px-10 py-3 text-sm sm:text-base font-bold rounded-lg shadow-md hover:shadow-lg transition-all"
+
+                    >
+                        Proceed to Confirm Booking
+
+                    </button>
 
 
                 </form>
 
 
-                <p className="pl-4 my-12"><li>PickUp Time: 4pm-7pm Approx.</li></p>
 
-
-                <button
-                    type="button"
-
-                    className="btn btn-primary text-black w-full sm:w-auto px-6 sm:px-10 py-3 text-sm sm:text-base font-bold rounded-lg shadow-md hover:shadow-lg transition-all"
-
-                >
-                    Proceed to Confirm Booking
-
-                </button>
 
 
 

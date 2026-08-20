@@ -24,13 +24,11 @@ const NavBar = () => {
             : "";
 
     const links = [
-        <li><NavLink to={'/services'} className={navLinkStyle}>Services</NavLink></li>,
-        <li><NavLink to={'/coverage'} className={navLinkStyle}>Coverage</NavLink></li>,
-        <li><NavLink to={'/pricing'} className={navLinkStyle}>Pricing</NavLink></li>,
-        <li><NavLink to={'/send-parcel'} className={navLinkStyle}>Send Parcel</NavLink></li>,
-        <li><NavLink to={'/about-us'} className={navLinkStyle}>About Us</NavLink></li>,
-
-
+        <li key="services"><NavLink to={'/services'} className={navLinkStyle}>Services</NavLink></li>,
+        <li key="coverage"><NavLink to={'/coverage'} className={navLinkStyle}>Coverage</NavLink></li>,
+        <li key="pricing"><NavLink to={'/pricing'} className={navLinkStyle}>Pricing</NavLink></li>,
+        <li key="send-parcel"><NavLink to={'/send-parcel'} className={navLinkStyle}>Send Parcel</NavLink></li>,
+        <li key="about-us"><NavLink to={'/about-us'} className={navLinkStyle}>About Us</NavLink></li>,
 
     ]
 
