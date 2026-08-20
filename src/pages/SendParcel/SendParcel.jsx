@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import parcel from "../../assets/parcel-icon.jpg"
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const SendParcel = () => {
 
@@ -30,8 +31,45 @@ const SendParcel = () => {
 
     const handleParcelSend = data => {
         console.log(data);
-        const sameDistrict = data.senderDistrict === data.receiverDistrict;
-        console.log(sameDistrict);
+        const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+        const isDocument = data.docType === "document";
+        const parcelWeight = parseFloat(data.parcelWeight);
+
+        // eslint-disable-next-line no-useless-assignment
+        let cost = 0;
+
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        } else {
+            if (parcelWeight < 3) {
+                cost = isSameDistrict ? 110 : 150;
+            } else {
+                const minCharge = isSameDistrict ? 110 : 150;
+                const extraWeight = parcelWeight - 3;
+                const extraCharge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40;
+
+                cost = minCharge + extraCharge;
+            }
+        }
+        console.log("cost", cost);
+
+        Swal.fire({
+            title: "Confirm Parcel Send?",
+            html: `Your <strong>${parcelWeight}</strong> kg <strong>${isDocument ? "Document" : "Non-Document"}</strong> parcel will be shipped for a charge of <strong>${cost} taka</strong>.`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, send it"
+        }).then((result) => {
+            if (result.isConfirmed)
+                Swal.fire({
+                    title: "Parcel Sent!",
+                    text: `Your parcel has been sent successfully. Total cost: ${cost} taka.`,
+                    icon: "success"
+                });
+        });
+
     }
 
 
@@ -76,7 +114,7 @@ const SendParcel = () => {
                                 className="radio radio-success radio-sm border-2 checked:bg-white checked:border-green-600"
                                 {...register("docType", { required: true })}
                             />
-                            <span className="text-sm font-semibold text-slate-800">Not-Document</span>
+                            <span className="text-sm font-semibold text-slate-800">Non-Document</span>
                         </label>
                     </div>
 
