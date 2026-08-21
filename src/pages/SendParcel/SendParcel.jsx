@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import parcel from "../../assets/parcel-icon.jpg"
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
 
@@ -11,6 +12,9 @@ const SendParcel = () => {
         watch,
         formState: { errors },
     } = useForm();
+
+
+    const instanceAxios = useAxiosSecure();
 
     const servicesPoints = useLoaderData();
     const duplicateRegions = servicesPoints.map((r) => r.region)
@@ -55,7 +59,7 @@ const SendParcel = () => {
 
         Swal.fire({
             title: "Confirm Parcel Send?",
-            html: `Your <strong>${parcelWeight}</strong> kg <strong>${isDocument ? "Document" : "Non-Document"}</strong> parcel will be shipped for a charge of <strong>${cost} taka</strong>.`,
+            html: `Your <strong>${parcelWeight}</strong> kg ${isDocument ? "Document" : "Non-Document"} parcel will be shipped for a charge of <strong>${cost} </strong> taka.`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -63,11 +67,18 @@ const SendParcel = () => {
             confirmButtonText: "Yes, send it"
         }).then((result) => {
             if (result.isConfirmed)
-                Swal.fire({
-                    title: "Parcel Sent!",
-                    text: `Your parcel has been sent successfully. Total cost: ${cost} taka.`,
-                    icon: "success"
-                });
+
+                instanceAxios.post('/parcels', data)
+                    .then(res => {
+                        console.log("After saving data", res.data);
+                    })
+
+
+            // Swal.fire({
+            //     title: "Parcel Sent!",
+            //     text: `Your parcel has been sent successfully. Total cost: ${cost} taka.`,
+            //     icon: "success"
+            // });
         });
 
     }
@@ -197,6 +208,28 @@ const SendParcel = () => {
                                 {errors.senderName?.type === 'required' && <span className="text-red-500 text-xs">Sender Name is required</span>}
                             </div>
 
+
+                            <div>
+                                <label className="label p-0 mb-1">
+                                    <span className="label-text text-xs font-bold text-gray-700">
+                                        Sender Email
+                                    </span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    placeholder="Sender Email"
+                                    className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
+
+                                    {...register("senderEmail", { required: true })}
+                                />
+
+                                {errors.senderEmail?.type === 'required' && <span className="text-red-500">Email is required</span>}
+
+
+                            </div>
+
+
                             <div>
                                 <label className="label p-0 mb-1">
                                     <span className="label-text text-xs font-bold text-gray-700">
@@ -314,6 +347,29 @@ const SendParcel = () => {
                                 />
                                 {errors.receiverName?.type === 'required' && <span className="text-red-500 text-xs">Receiver Name is required</span>}
                             </div>
+
+
+
+                            <div>
+                                <label className="label p-0 mb-1">
+                                    <span className="label-text text-xs font-bold text-gray-700">
+                                        Receiver Email
+                                    </span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    placeholder="Receiver Email"
+                                    className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
+
+                                    {...register("receiverEmail", { required: true })}
+                                />
+
+                                {errors.receiverEmail?.type === 'required' && <span className="text-red-500">Email is required</span>}
+
+
+                            </div>
+
 
                             <div>
                                 <label className="label p-0 mb-1">
