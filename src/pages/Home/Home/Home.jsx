@@ -8,7 +8,7 @@ import Reviews from "../Reviews/Reviews";
 import VerticalLine from "../VerticalLine/VerticalLine";
 
 
-const reviewsPromise = fetch('reviews.json').then(res => res.json());
+const reviewsPromise = fetch('/reviews.json').then(res => res.json());
 
 const Home = () => {
     return (

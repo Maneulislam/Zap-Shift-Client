@@ -13,6 +13,8 @@ import SendParcel from "../pages/SendParcel/SendParcel";
 import ForgetPassword from "../pages/Authentication/ForgetPassword/ForgetPassword";
 import EnterCode from "../pages/Authentication/ForgetPassword/EnterCode";
 import ResetPassword from "../pages/Authentication/ForgetPassword/ResetPassword";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 
 
 export const router = createBrowserRouter([
@@ -90,6 +92,40 @@ export const router = createBrowserRouter([
         ]
     },
 
+
+
+
+
+    // Dashboard Layout
+
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        children: [
+            {
+                path: '/dashboard/my-parcels',
+                Component: MyParcels,
+            },
+
+            // {
+            //     path: 'register',
+            //     Component: Register,
+            // },
+            // {
+            //     path: 'forget-password',
+            //     Component: ForgetPassword,
+            // },
+            // {
+            //     path: 'enter-code',
+            //     Component: EnterCode,
+            // },
+
+            // {
+            //     path: 'reset-pass',
+            //     Component: ResetPassword
+            // },
+        ]
+    },
 
 
 
