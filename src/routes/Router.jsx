@@ -15,6 +15,7 @@ import EnterCode from "../pages/Authentication/ForgetPassword/EnterCode";
 import ResetPassword from "../pages/Authentication/ForgetPassword/ResetPassword";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -103,14 +104,14 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
-                path: '/dashboard/my-parcels',
+                path: 'my-parcels',
                 Component: MyParcels,
             },
 
-            // {
-            //     path: 'register',
-            //     Component: Register,
-            // },
+            {
+                path: 'payment/:parcelId',
+                Component: Payment,
+            },
             // {
             //     path: 'forget-password',
             //     Component: ForgetPassword,

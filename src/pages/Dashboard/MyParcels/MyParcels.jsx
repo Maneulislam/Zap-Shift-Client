@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FiEdit, FiSearch } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcels = () => {
     const { user } = useAuth();
@@ -17,9 +18,47 @@ const MyParcels = () => {
         },
     });
 
+    const handleView = async (id) => {
+        try {
+            const res = await instanceAxios.get(`/parcels/${id}`);
+            const parcel = res.data;
+
+            Swal.fire({
+                title: `<strong>${parcel.parcelName}</strong>`,
+                icon: 'info',
+                html: `
+                <div style="text-align: left; font-size: 14px; line-height: 1.8;">
+                <p><strong>Receiver Name:</strong> ${parcel.receiverName}</p>
+                    <p><strong>Receiver Email:</strong> ${parcel.receiverEmail}</p>
+                    <p><strong>Receiver Phone:</strong> ${parcel.receiverPhone}</p>
+                    <p><strong>Receiver Address:</strong> ${parcel.receiverAddress}</p>
+                    <p><strong>Receiver Region:</strong> ${parcel.receiverRegion}</p>
+                    <p><strong>Receiver District:</strong> ${parcel.receiverDistrict}</p>
+                    <p><strong>Document Type:</strong> ${parcel.docType}</p>
+                    
+                    <p><strong>Weight:</strong> ${parcel.parcelWeight} kg</p>
+                    <p><strong>Amount:</strong> ${parcel.cost} Taka</p>
+                    <p><strong>Created At:</strong> ${new Date(parcel.createdAt).toLocaleString("en-GB")}</p>
+                </div>
+            `,
+                showCloseButton: true,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#3085d6'
+            });
+        } catch (error) {
+            console.error("Error fetching parcel details:", error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to load parcel details.',
+                icon: 'error'
+            });
+        }
+    };
+
 
 
     const handleDelete = (id) => {
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -92,49 +131,68 @@ const MyParcels = () => {
                             <th className="align-middle text-center border-r border-base-300">#</th>
                             <th className="align-middle text-center border-r border-base-300">Parcel Name</th>
                             <th className="align-middle text-center border-r border-base-300">Weight</th>
-                            <th className="align-middle text-center border-r border-base-300">Receiver Name</th>
-                            <th className="align-middle text-center border-r border-base-300">Receiver Email</th>
-                            <th className="align-middle text-center border-r border-base-300">Cost</th>
-                            <th className="align-middle text-center border-r border-base-300">Date & Time</th>
+                            <th className="align-middle text-center border-r border-base-300">Payment</th>
+                            <th className="align-middle text-center border-r border-base-300">Delivery Status</th>
+                            <th className="align-middle text-center border-r border-base-300">Amount</th>
+                            <th className="align-middle text-center border-r border-base-300">Time</th>
                             <th className="align-middle text-center">Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {parcels.map((parcel, index) => (
-                            <tr key={parcel._id} className="text-center align-middle border-b border-base-300">
-                                <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
-                                <td className="align-middle border-r border-base-300">{parcel.parcelName}</td>
-                                <td className="align-middle border-r border-base-300">{parcel.parcelWeight}</td>
-                                <td className="align-middle border-r border-base-300">{parcel.receiverName}</td>
-                                <td className="align-middle border-r border-base-300">{parcel.receiverEmail}</td>
-                                <td className="align-middle border-r border-base-300">{parcel.cost}</td>
-                                <td className="align-middle border-r border-base-300">
-                                    {new Date(parcel.createdAt).toLocaleString("en-GB", {
-                                        day: "2-digit",
-                                        month: "short",
-                                        year: "numeric",
-                                        hour: "2-digit",
-                                        minute: "2-digit",
-                                        hour12: true,
-                                    })}
-                                </td>
+                        {
+                            parcels.map((parcel, index) => (
+                                <tr key={parcel._id} className="text-center align-middle border-b border-base-300">
+                                    <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
+                                    <td className="align-middle border-r border-base-300">{parcel.parcelName}</td>
+                                    <td className="align-middle border-r border-base-300">{parcel.parcelWeight}</td>
 
-                                <td className="align-middle">
-                                    <button onClick={() => handleDelete(parcel._id)} className="btn btn-square hover:bg-primary">
-                                        <FiSearch />
-                                    </button>
+                                    <td className="align-middle border-r border-base-300">
 
-                                    <button className="btn btn-square hover:bg-primary mx-2">
-                                        <FiEdit />
-                                    </button>
+                                        {
+                                            parcel.paymentStatus === "paid" ?
+                                                <span className="text-green-400">Paid</span>
+                                                :
 
-                                    <button onClick={() => handleDelete(parcel._id)} className="btn btn-square hover:bg-primary">
-                                        <RiDeleteBin5Line />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                                                <Link to={`/dashboard/payment/${parcel._id}`} className="btn btn-sm bg-primary">
+                                                    Pay
+                                                </Link>
+
+                                        }
+
+
+                                    </td>
+
+                                    <td className="align-middle border-r border-base-300">{parcel.receiverEmail}</td>
+
+                                    <td className="align-middle border-r border-base-300">{parcel.cost}</td>
+                                    <td className="align-middle border-r border-base-300">
+                                        {new Date(parcel.createdAt).toLocaleString("en-GB", {
+                                            day: "2-digit",
+                                            month: "short",
+                                            year: "numeric",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            hour12: true,
+                                        })}
+                                    </td>
+
+                                    <td className="align-middle">
+                                        <button onClick={() => handleView(parcel._id)} className="btn btn-square hover:bg-primary">
+                                            <FiSearch />
+                                        </button>
+
+                                        <button className="btn btn-square hover:bg-primary mx-2">
+                                            <FiEdit />
+                                        </button>
+
+                                        <button onClick={() => handleDelete(parcel._id)} className="btn btn-square hover:bg-primary">
+                                            <RiDeleteBin5Line />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>
