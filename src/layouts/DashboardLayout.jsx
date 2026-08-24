@@ -1,8 +1,9 @@
 import { useRef } from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import Logo from "../components/Logo/Logo";
 
 const DashboardLayout = () => {
+
     const drawerInputRef = useRef(null);
 
     const closeDrawer = () => {
@@ -19,13 +20,13 @@ const DashboardLayout = () => {
 
 
     const navLinkClass = ({ isActive }) =>
-        `flex items-center gap-5 font-bold   ${isActive ? "bg-primary text-black  rounded-md" : "text-gray-300 hover:bg-gray-700 hover:text-white  "
+        `flex items-center gap-5    ${isActive ? "bg-primary text-black font-bold rounded-md" : "text-gray-300 hover:bg-gray-700 hover:text-white  "
         }`;
 
 
 
     return (
-        <div className="drawer lg:drawer-open min-h-screen">
+        <div className="drawer lg:drawer-open min-h-screen ">
             <input
                 ref={drawerInputRef}
                 type="checkbox"
@@ -39,15 +40,11 @@ const DashboardLayout = () => {
                         aria-label="open sidebar"
                         className="btn btn-square btn-ghost drawer-button lg:hidden"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-6">
-                            <line x1="4" x2="20" y1="12" y2="12" />
-                            <line x1="4" x2="20" y1="6" y2="6" />
-                            <line x1="4" x2="20" y1="18" y2="18" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-8"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
                     </button>
 
-                    <div className="flex-1">
-
+                    <div className="flex-1 pl-2 text-2xl font-bold">
+                        ZapShift Dashboard
                     </div>
                 </nav>
 
@@ -67,15 +64,16 @@ const DashboardLayout = () => {
                     <div className="flex items-center border-b border-gray-600 h-16 px-5 text-white justify-between mb-6 pb-2  ">
                         <Logo />
 
-                        {/* <button
+                        {/* Drawer close button */}
+                        <button
                             onClick={closeDrawer}
                             aria-label="close sidebar"
-                            className="btn btn-sm btn-circle btn-ghost lg:hidden"
+                            className="btn btn-sm btn-circle pt-3 text-gray-500 hover:text-white btn-ghost lg:hidden"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                        </button> */}
+                        </button>
                     </div>
 
 

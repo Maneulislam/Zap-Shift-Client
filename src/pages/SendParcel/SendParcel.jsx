@@ -3,6 +3,7 @@ import parcel from "../../assets/parcel-icon.jpg"
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
 
@@ -12,6 +13,8 @@ const SendParcel = () => {
         watch,
         formState: { errors },
     } = useForm();
+
+    const { user } = useAuth();
 
 
     const instanceAxios = useAxiosSecure();
@@ -56,6 +59,7 @@ const SendParcel = () => {
             }
         }
         console.log("cost", cost);
+        data.cost = cost;
 
         Swal.fire({
             title: "Confirm Parcel Send?",
@@ -202,10 +206,11 @@ const SendParcel = () => {
                                 <input
                                     type="text"
                                     placeholder="Sender Name"
+                                    defaultValue={user.displayName}
                                     className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
                                     {...register("senderName", { required: true })}
                                 />
-                                {errors.senderName?.type === 'required' && <span className="text-red-500 text-xs">Sender Name is required</span>}
+                                {errors.senderName?.type === 'required' && <span className="text-red-500 text-xs">Sender name is required</span>}
                             </div>
 
 
@@ -219,6 +224,7 @@ const SendParcel = () => {
                                 <input
                                     type="email"
                                     placeholder="Sender Email"
+                                    defaultValue={user.email}
                                     className="input input-bordered w-full h-9 min-h-9 rounded-md text-sm border-gray-300 focus:border-primary focus:border-2 focus:outline-none"
 
                                     {...register("senderEmail", { required: true })}
