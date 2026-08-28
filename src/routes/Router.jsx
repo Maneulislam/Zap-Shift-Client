@@ -16,6 +16,8 @@ import ResetPassword from "../pages/Authentication/ForgetPassword/ResetPassword"
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentSuccessful from "../pages/Dashboard/Payment/PaymentSuccessful";
+import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 
 
 export const router = createBrowserRouter([
@@ -112,14 +114,14 @@ export const router = createBrowserRouter([
                 path: 'payment/:parcelId',
                 Component: Payment,
             },
-            // {
-            //     path: 'forget-password',
-            //     Component: ForgetPassword,
-            // },
-            // {
-            //     path: 'enter-code',
-            //     Component: EnterCode,
-            // },
+            {
+                path: 'payment-success',
+                Component: PaymentSuccessful,
+            },
+            {
+                path: 'payment-cancelled',
+                Component: PaymentCancelled,
+            },
 
             // {
             //     path: 'reset-pass',
