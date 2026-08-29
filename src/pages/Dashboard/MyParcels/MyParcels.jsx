@@ -143,7 +143,7 @@ const MyParcels = () => {
 
             {/* Table */}
             <div className="overflow-x-auto mt-10">
-                <table className="table w-full border-collapse border border-base-300">
+                <table className="table table-zebra w-full border-collapse border border-base-300">
                     <thead>
                         <tr className="bg-base-200 text-center align-middle border-b border-base-300">
                             <th className="align-middle text-center border-r border-base-300">#</th>
@@ -214,6 +214,8 @@ const MyParcels = () => {
                     </tbody>
                 </table>
             </div>
+
+
         </div>
     );
 };

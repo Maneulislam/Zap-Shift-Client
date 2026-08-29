@@ -92,12 +92,6 @@ const SendParcel = () => {
                         }
                     })
 
-
-            // Swal.fire({
-            //     title: "Parcel Sent!",
-            //     text: `Your parcel has been sent successfully. Total cost: ${cost} taka.`,
-            //     icon: "success"
-            // });
         });
 
     }
