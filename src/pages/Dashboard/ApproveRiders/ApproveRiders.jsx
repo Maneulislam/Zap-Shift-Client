@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaUserCheck } from 'react-icons/fa6';
+import Swal from 'sweetalert2';
+import { IoPersonRemoveSharp } from 'react-icons/io5';
+import { RiDeleteBin5Line } from 'react-icons/ri';
 
 const ApproveRiders = () => {
 
     const instanceAxios = useAxiosSecure();
 
-    const { data: riders = [] } = useQuery({
+    const { data: riders = [], refetch } = useQuery({
         queryKey: ('/riders', 'pending'),
         queryFn: async () => {
             const res = await instanceAxios.get('/riders');
@@ -16,14 +19,83 @@ const ApproveRiders = () => {
     console.log(riders);
 
 
-    const handleApproval = id => {
-        console.log("Approval");
+    const updateRiderStatus = (id, status) => {
+
+        const updateInfo = { status: status };
+
+        instanceAxios.patch(`/riders/${id}`, updateInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+
+                    refetch();
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Rider status is set to ${status}`,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+
+                }
+            })
+
     }
+
+
+    const handleApproval = (id) => {
+        updateRiderStatus(id, 'approved');
+
+    }
+
+
+    const handleRejection = id => {
+        updateRiderStatus(id, 'rejected');
+    }
+
+
+    const handleRiderDelete = (id) => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                instanceAxios.delete(`riders/${id}`)
+                    .then(res => {
+                        console.log(res.data);
+
+
+                        if (res.data.deletedCount) {
+
+                            refetch();
+
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Rider has been deleted.",
+                                icon: "success"
+                            });
+
+                        }
+                    })
+
+
+            }
+        });
+    };
+
+
+
 
     return (
         <div>
 
-            <h2 className='text-2xl font-bold'>Riders Pending Approval:{riders.length}</h2>
+            <h2 className='text-2xl font-bold'>Riders Pending Approval: {riders.length}</h2>
 
 
             {/* Table */}
@@ -52,7 +124,17 @@ const ApproveRiders = () => {
 
                                     <td className="align-middle border-r border-base-300">{rider.district}</td>
 
-                                    <td className="align-middle border-r border-base-300">{rider.status}</td>
+                                    <td
+                                        className={`align-middle border-r border-base-300 ${rider.status === 'approved'
+                                            ? 'text-green-400'
+                                            : rider.status === 'pending'
+                                                ? 'text-black'
+                                                : 'text-red-500'
+                                            }`}
+                                    >
+                                        {rider.status}
+                                    </td>
+
                                     <td className="align-middle border-r border-base-300">
                                         {new Date(rider.createdAt).toLocaleString("en-GB", {
                                             day: "2-digit",
@@ -70,13 +152,13 @@ const ApproveRiders = () => {
 
                                         </button>
 
-                                        <button className="btn btn-square hover:bg-primary mx-2">
-
+                                        <button onClick={() => { handleRejection(rider._id) }} className="btn btn-square hover:bg-primary mx-2">
+                                            <IoPersonRemoveSharp size={20} />
                                         </button>
-                                        {/* 
-                                        <button onClick={() => handleDelete(parcel._id)} className="btn btn-square hover:bg-primary">
 
-                                        </button> */}
+                                        <button onClick={() => handleRiderDelete(rider._id)} className="btn btn-square hover:bg-primary">
+                                            <RiDeleteBin5Line size={20} />
+                                        </button>
                                     </td>
                                 </tr>
                             ))
