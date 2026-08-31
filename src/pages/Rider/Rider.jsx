@@ -28,40 +28,32 @@ const Rider = () => {
     };
 
     const handleRiderApplication = (data) => {
-        Swal.fire({
-            title: "Submit Rider Application?",
-            text: "Are you sure you want to apply as a rider?",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#c0e768",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Apply!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                instanceAxios.post('/riders', data)
-                    .then((res) => {
-                        if (res.data.insertedId) {
-                            Swal.fire({
-                                position: "top-end",
-                                icon: "success",
-                                title: "Application Submitted Successfully!",
-                                showConfirmButton: false,
-                                timer: 2500
-                            });
-                            navigate('/dashboard/my-application');
-                        }
-                    })
-                    .catch((err) => {
-                        console.error(err);
+
+        console.log(data);
+
+        instanceAxios.post('/riders', data)
+            .then(res => {
+                if (res.data.insertedId) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Application Submitted Successfully!",
+                        showConfirmButton: false,
+                        timer: 2500
                     });
-            }
-        });
+
+                }
+            })
+
+
+
     };
 
     return (
         <div className="max-w-6xl mx-auto p-6 px-6 md:p-10 md:px-20 mb-20">
 
-            <div className="max-w-2xl">
+            <div className="max-w-lg">
                 <h1 className="text-3xl md:text-4xl font-extrabold ">Be a Rider</h1>
                 <p className="text-gray-500 mt-5 text-sm md:text-base ">
                     Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.  From personal packages to business shipments — we deliver on time, every time.
@@ -138,7 +130,8 @@ const Rider = () => {
                             {errors.region && <span className="text-red-500 text-xs mt-1 block">{errors.region.message}</span>}
                         </div>
 
-                        {/* District */}
+
+
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1.5">
                                 Your District
