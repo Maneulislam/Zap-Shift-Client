@@ -4,6 +4,7 @@ import { FaUserCheck } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
 import { IoPersonRemoveSharp } from 'react-icons/io5';
 import { RiDeleteBin5Line } from 'react-icons/ri';
+import { FiSearch } from 'react-icons/fi';
 
 const ApproveRiders = () => {
 
@@ -19,11 +20,11 @@ const ApproveRiders = () => {
     console.log(riders);
 
 
-    const updateRiderStatus = (id, status) => {
+    const updateRiderStatus = (rider, status) => {
 
-        const updateInfo = { status: status };
+        const updateInfo = { status: status, email: rider.email };
 
-        instanceAxios.patch(`/riders/${id}`, updateInfo)
+        instanceAxios.patch(`/riders/${rider._id}`, updateInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
 
@@ -43,14 +44,14 @@ const ApproveRiders = () => {
     }
 
 
-    const handleApproval = (id) => {
-        updateRiderStatus(id, 'approved');
+    const handleApproval = (rider) => {
+        updateRiderStatus(rider, 'approved');
 
     }
 
 
-    const handleRejection = id => {
-        updateRiderStatus(id, 'rejected');
+    const handleRejection = rider => {
+        updateRiderStatus(rider, 'rejected');
     }
 
 
@@ -89,6 +90,46 @@ const ApproveRiders = () => {
         });
     };
 
+
+    const handleView = async (id) => {
+        try {
+            const res = await instanceAxios.get(`/riders/${id}`);
+            const rider = res.data;
+
+            Swal.fire({
+                title: `<strong>${rider.name}</strong>`,
+                icon: 'info',
+                html: `
+                <div style="text-align: left; font-size: 14px; line-height: 1.8;">
+                    <p><strong>Name:</strong> ${rider.name}</p>
+                    <p><strong>Driving License:</strong> ${rider.drivingLicense}</p>
+                    <p><strong>Email:</strong> ${rider.email}</p>
+                    <p><strong>Region:</strong> ${rider.region}</p>
+                    <p><strong>District:</strong> ${rider.district}</p>
+                    <p><strong>NID:</strong> ${rider.nid}</p>
+                    <p><strong>Phone:</strong> ${rider.phone}</p>
+                    <p><strong>Bike Model:</strong> ${rider.bikeModel}</p>
+                    <p><strong>Bike Registration:</strong> ${rider.bikeRegistration}</p>
+                    <p><strong>About Yourself:</strong> ${rider.aboutYourself}</p>
+                    <p><strong>Status:</strong> ${rider.status}</p>
+                    <p><strong>Role:</strong> ${rider.role}</p>
+                    <p><strong>Created At:</strong> ${new Date(rider.createdAt).toLocaleString("en-GB")}</p>
+                </div>
+            `,
+                showCloseButton: true,
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#3085d6'
+            });
+        } catch (error) {
+            console.error("Error fetching rider details:", error);
+
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to load rider details.',
+                icon: 'error'
+            });
+        }
+    };
 
 
 
@@ -147,12 +188,19 @@ const ApproveRiders = () => {
                                     </td>
 
                                     <td className="align-middle">
-                                        <button onClick={() => handleApproval(rider._id)} className="btn btn-square hover:bg-primary">
+
+                                        <button onClick={() => handleView(rider._id)} className="btn btn-square hover:bg-primary">
+                                            <FiSearch size={20} />
+
+                                        </button>
+
+
+                                        <button onClick={() => handleApproval(rider)} className="btn btn-square hover:bg-primary">
                                             <FaUserCheck size={20} />
 
                                         </button>
 
-                                        <button onClick={() => { handleRejection(rider._id) }} className="btn btn-square hover:bg-primary mx-2">
+                                        <button onClick={() => { handleRejection(rider) }} className="btn btn-square hover:bg-primary mx-2">
                                             <IoPersonRemoveSharp size={20} />
                                         </button>
 

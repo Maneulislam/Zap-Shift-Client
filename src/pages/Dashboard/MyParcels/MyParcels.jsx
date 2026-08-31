@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FiEdit, FiSearch } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { FiSearch } from "react-icons/fi";
 
 const MyParcels = () => {
     const { user } = useAuth();
@@ -16,6 +16,7 @@ const MyParcels = () => {
             return res.data;
         },
     });
+
 
 
 
@@ -114,6 +115,7 @@ const MyParcels = () => {
 
     return (
         <div>
+
             {/* Total */}
             <div className="card card-side bg-base-300 shadow-sm w-52 px-5 m-6">
                 <figure>
@@ -195,14 +197,12 @@ const MyParcels = () => {
                                         })}
                                     </td>
 
-                                    <td className="align-middle">
+                                    <td className="align-middle space-x-4">
                                         <button onClick={() => handleView(parcel._id)} className="btn btn-square hover:bg-primary">
                                             <FiSearch />
                                         </button>
 
-                                        <button className="btn btn-square hover:bg-primary mx-2">
-                                            <FiEdit />
-                                        </button>
+
 
                                         <button onClick={() => handleDelete(parcel._id)} className="btn btn-square hover:bg-primary">
                                             <RiDeleteBin5Line />
