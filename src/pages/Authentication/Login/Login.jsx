@@ -41,28 +41,35 @@ const Login = () => {
 
         signInWithGoogle()
             .then(result => {
-                console.log(result.user);
+                console.log("Google user:", result.user);
+                console.log("Photo URL:", result.user.photoURL);
 
                 const userInfo = {
                     email: result.user.email,
-                    name: result.user.displayName,
+                    displayName: result.user.displayName,
                     photoURL: result.user.photoURL
-                }
+                };
 
                 instanceAxios.post('/users', userInfo)
                     .then(res => {
                         if (res.data.insertedId) {
-                            console.log("User created in the database from Social login with login page");
+                            console.log("User created in database");
+                        } else if (res.data.message === 'user already exists') {
+                            console.log("User already exists");
                         }
+
+                        navigate(location.state || '/dashboard');
                     })
-
-
+                    .catch(error => {
+                        console.log("Database error:", error);
+                    });
             })
             .catch(error => {
-                console.log(error);
-            })
-        navigate(location.state || '/dashboard')
+                console.log("Google login error:", error);
+            });
     };
+
+
 
     return (
         <div >

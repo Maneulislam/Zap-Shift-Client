@@ -89,7 +89,7 @@ const DashboardLayout = () => {
                                     <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
                                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                                 </svg>
-                                <span className="text-lg">Homepage</span>
+                                <span className="text-base">Homepage</span>
                             </NavLink>
                         </li>
 
@@ -105,7 +105,7 @@ const DashboardLayout = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="lucide lucide-layout-dashboard-icon lucide-layout-dashboard size-7">
                                     <rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" />
                                 </svg>
-                                <span className="text-lg">Dashboard</span>
+                                <span className="text-base">Dashboard</span>
                             </NavLink>
                         </li>
 
@@ -122,7 +122,7 @@ const DashboardLayout = () => {
                                     <path d="M2.336 8.89 10 14l11.715-7.029" />
                                     <path d="M22 14a2 2 0 0 1-.971 1.715l-10 6a2 2 0 0 1-2.138-.05l-6-4A2 2 0 0 1 2 16v-6a2 2 0 0 1 .971-1.715l10-6a2 2 0 0 1 2.138.05l6 4A2 2 0 0 1 22 8z" />
                                 </svg>
-                                <span className="text-lg">My Parcels</span>
+                                <span className="text-base">My Parcels</span>
                             </NavLink>
                         </li>
 
@@ -137,7 +137,7 @@ const DashboardLayout = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
                                     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" />
                                 </svg>
-                                <span className="text-lg">Payment History</span>
+                                <span className="text-base">Payment History</span>
                             </NavLink>
                         </li>
 
@@ -153,7 +153,23 @@ const DashboardLayout = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
                                     <path d="m18 14-1-3" /><path d="m3 9 6 2a2 2 0 0 1 2-2h2a2 2 0 0 1 1.99 1.81" /><path d="M8 17h3a1 1 0 0 0 1-1 6 6 0 0 1 6-6 1 1 0 0 0 1-1v-.75A5 5 0 0 0 17 5" /><circle cx="19" cy="17" r="3" /><circle cx="5" cy="17" r="3" />
                                 </svg>
-                                <span className="text-lg">Approve Riders</span>
+                                <span className="text-base">Approve Riders</span>
+                            </NavLink>
+                        </li>
+
+
+
+
+                        <li>
+                            <NavLink
+                                to="/dashboard/users-management"
+                                onClick={closeDrawer}
+                                className={navLinkClass}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" />
+                                </svg>
+                                <span className="text-base">Users Management</span>
                             </NavLink>
                         </li>
 
@@ -173,7 +189,7 @@ const DashboardLayout = () => {
                                     <circle cx="17" cy="17" r="3" />
                                     <circle cx="7" cy="7" r="3" />
                                 </svg>
-                                <span className="text-lg">Settings</span>
+                                <span className="text-base">Settings</span>
                             </NavLink>
                         </li>
 

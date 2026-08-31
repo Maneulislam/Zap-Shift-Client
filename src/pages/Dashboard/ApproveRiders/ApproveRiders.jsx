@@ -11,7 +11,7 @@ const ApproveRiders = () => {
     const instanceAxios = useAxiosSecure();
 
     const { data: riders = [], refetch } = useQuery({
-        queryKey: ('/riders', 'pending'),
+        queryKey: ['/riders', 'pending'],
         queryFn: async () => {
             const res = await instanceAxios.get('/riders');
             return res.data;
@@ -187,7 +187,7 @@ const ApproveRiders = () => {
                                         })}
                                     </td>
 
-                                    <td className="align-middle">
+                                    <td className="align-middle space-x-2">
 
                                         <button onClick={() => handleView(rider._id)} className="btn btn-square hover:bg-primary">
                                             <FiSearch size={20} />
@@ -200,7 +200,7 @@ const ApproveRiders = () => {
 
                                         </button>
 
-                                        <button onClick={() => { handleRejection(rider) }} className="btn btn-square hover:bg-primary mx-2">
+                                        <button onClick={() => { handleRejection(rider) }} className="btn btn-square hover:bg-primary">
                                             <IoPersonRemoveSharp size={20} />
                                         </button>
 

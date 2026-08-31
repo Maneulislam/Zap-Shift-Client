@@ -50,7 +50,7 @@ const Register = () => {
                         const userInfo = {
                             email: data.email,
                             displayName: data.name,
-                            photoURL: photoURL
+                            photo: photoURL
                         }
                         instanceAxios.post('/users', userInfo)
                             .then(res => {
@@ -96,7 +96,7 @@ const Register = () => {
 
                 const userInfo = {
                     email: result.user.email,
-                    name: result.user.displayName,
+                    displayName: result.user.displayName,
                     photoURL: result.user.photoURL,
                 }
 
