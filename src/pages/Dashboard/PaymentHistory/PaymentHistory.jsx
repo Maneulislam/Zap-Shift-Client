@@ -33,10 +33,11 @@ const PaymentHistory = () => {
                     <thead>
                         <tr className="bg-base-200 text-center align-middle border-b border-base-300">
                             <th className="align-middle text-center border-r border-base-300">#</th>
-                            {/* <th className="align-middle text-center border-r border-base-300">Parcel Info</th> */}
+                            <th className="align-middle text-center border-r border-base-300">Amount</th>
+                            <th className="align-middle text-center border-r border-base-300">Paid Time</th>
                             <th className="align-middle text-center border-r border-base-300">Transaction</th>
                             <th className="align-middle text-center border-r border-base-300">Tracking Number</th>
-                            <th className="align-middle text-center border-r border-base-300">Payment Info</th>
+
                             {/* <th className="align-middle text-center">Actions</th> */}
                         </tr>
                     </thead>
@@ -46,7 +47,19 @@ const PaymentHistory = () => {
                             payments.map((payment, index) => (
                                 <tr key={payment._id} className="text-center align-middle border-b border-base-300">
                                     <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
-                                    {/* <td className="align-middle border-r border-base-300">{payment.parcelName}</td> */}
+                                    <td className="align-middle border-r border-base-300">${payment.amount}</td>
+
+
+                                    <td className="align-middle border-r border-base-300">
+                                        {new Date(payment.paidAt).toLocaleString("en-GB", {
+                                            day: "2-digit",
+                                            month: "short",
+                                            year: "numeric",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            hour12: true,
+                                        })}
+                                    </td>
 
 
 
@@ -57,7 +70,7 @@ const PaymentHistory = () => {
 
 
 
-                                    <td className="align-middle border-r border-base-300">{payment.amount}</td>
+
 
 
 

@@ -49,7 +49,7 @@ const useAxiosSecure = () => {
             instanceAxios.interceptors.response.eject(resInterceptor)
         }
 
-    }, [user])
+    }, [user, logOut, navigate])
 
 
     return instanceAxios;

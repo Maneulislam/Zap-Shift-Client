@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Register = () => {
 
@@ -19,6 +20,7 @@ const Register = () => {
 
 
     const { registerUser, signInWithGoogle, updateUserProfile } = useAuth();
+    const instanceAxios = useAxiosSecure();
 
 
 
@@ -28,8 +30,8 @@ const Register = () => {
         const profileImage = data.photo[0];
 
         registerUser(data.email, data.password)
-            .then((result) => {
-                console.log(result);
+            .then(() => {
+
 
                 const formData = new FormData();
                 formData.append("image", profileImage);
@@ -39,12 +41,29 @@ const Register = () => {
 
                 axios.post(image_API_URL, formData)
                     .then(res => {
-                        console.log("After image upload", res.data.data.url);
+
+                        const photoURL = res.data.data.url;
+
+
+                        // Create user in Database
+
+                        const userInfo = {
+                            email: data.email,
+                            displayName: data.name,
+                            photoURL: photoURL
+                        }
+                        instanceAxios.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log("User created in the database");
+                                }
+                            })
+
 
 
                         const userProfile = {
                             displayName: data.name,
-                            photoURL: res.data.data.url
+                            photoURL: photoURL
                         }
 
 
@@ -52,8 +71,8 @@ const Register = () => {
                     })
 
                     .then(() => {
-                        console.log("After update user profile");
-                        navigate(location.state || "/");
+
+                        navigate(location.state || "/dashboard");
                     })
                     .catch(error => console.log(error))
 
@@ -72,7 +91,23 @@ const Register = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
-                navigate(location.state || "/");
+
+                // Create User in database
+
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    photoURL: result.user.photoURL,
+                }
+
+                instanceAxios.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log("User created in the database from Social login");
+                        }
+                    })
+
+                navigate(location.state || "/dashboard");
             })
             .catch(error => {
                 console.log(error);

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Login = () => {
 
@@ -12,6 +13,8 @@ const Login = () => {
     } = useForm();
 
     const { signInUser, signInWithGoogle } = useAuth();
+
+    const instanceAxios = useAxiosSecure();
 
     const navigate = useNavigate();
 
@@ -29,7 +32,7 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-        navigate(location.state || '/')
+        navigate(location.state || '/dashboard')
 
     };
 
@@ -39,15 +42,30 @@ const Login = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
+
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    photoURL: result.user.photoURL
+                }
+
+                instanceAxios.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log("User created in the database from Social login with login page");
+                        }
+                    })
+
+
             })
             .catch(error => {
                 console.log(error);
             })
-        navigate(location.state || '/login')
+        navigate(location.state || '/dashboard')
     };
 
     return (
-        <div className="">
+        <div >
 
 
 
