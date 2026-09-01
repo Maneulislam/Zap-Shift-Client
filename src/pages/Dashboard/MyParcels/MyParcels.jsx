@@ -138,8 +138,8 @@ const MyParcels = () => {
                     </svg>
                 </figure>
                 <div className="card-body flex-1 items-center">
-                    <h2 className="text-sm">Total Parcels</h2>
-                    <p className="text-2xl font-bold">{parcels.length}</p>
+                    <h2 className="text-sm font-bold">Total Parcels</h2>
+                    <p className="text-3xl font-bold">{parcels.length}</p>
                 </div>
             </div>
 

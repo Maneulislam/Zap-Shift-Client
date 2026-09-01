@@ -88,8 +88,8 @@ const UsersManagement = () => {
                     </svg>
                 </figure>
                 <div className="card-body flex-1 items-center">
-                    <h2 className="text-sm">Total Users</h2>
-                    <p className="text-2xl font-bold">{users.length}</p>
+                    <h2 className="text-sm font-bold">Total Users</h2>
+                    <p className="text-3xl font-bold">{users.length}</p>
                 </div>
             </div>
 
@@ -113,17 +113,37 @@ const UsersManagement = () => {
                     <tbody>
                         {
                             users.map((user, index) => (
+                                console.log(user),
                                 <tr key={user._id} className="text-center align-middle border-b border-base-300">
                                     <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
+
+
                                     <td className="align-middle border-r border-base-300">
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle h-12 w-12">
+                                        <div className="w-12 h-12">
+                                            {user?.photoURL ? (
                                                 <img
                                                     src={user.photoURL}
+                                                    alt={user?.displayName || "User"}
+                                                    className="w-12 h-12 rounded-full object-cover"
+                                                    onError={(e) => {
+                                                        e.currentTarget.style.display = "none";
+                                                        e.currentTarget.nextElementSibling.style.display = "flex";
+                                                    }}
                                                 />
+                                            ) : null}
+
+                                            <div
+                                                className={`w-12 h-12 rounded-full bg-[#c93612] items-center justify-center ${user?.photoURL ? "hidden" : "flex"
+                                                    }`}
+                                            >
+                                                <span className="text-white text-2xl font-normal">
+                                                    {user?.displayName?.trim()?.charAt(0)?.toUpperCase() || "U"}
+                                                </span>
                                             </div>
                                         </div>
                                     </td>
+
+
                                     <td className="align-middle border-r border-base-300">{user.displayName}</td>
                                     <td className="align-middle border-r border-base-300">{user.email}</td>
 

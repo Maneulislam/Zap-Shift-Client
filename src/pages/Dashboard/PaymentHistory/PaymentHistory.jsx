@@ -44,8 +44,8 @@ const PaymentHistory = () => {
                     </svg>
                 </figure>
                 <div className="card-body flex-1 items-center">
-                    <h2 className="text-sm">Total Payments</h2>
-                    <p className="text-2xl font-bold">{payments.length}</p>
+                    <h2 className="text-sm font-bold">Total Payments</h2>
+                    <p className="text-3xl font-bold">{payments.length}</p>
                 </div>
             </div>
 

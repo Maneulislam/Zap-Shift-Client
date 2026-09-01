@@ -156,8 +156,8 @@ const ApproveRiders = () => {
                     </svg>
                 </figure>
                 <div className="card-body flex-1 items-center">
-                    <h2 className="text-sm">Total Application</h2>
-                    <p className="text-2xl font-bold">{riders.length}</p>
+                    <h2 className="text-sm font-bold">Total Application</h2>
+                    <p className="text-3xl font-bold">{riders.length}</p>
                 </div>
             </div>
 
