@@ -143,6 +143,9 @@ const MyParcels = () => {
                 </div>
             </div>
 
+
+
+
             {/* Table */}
             <div className="overflow-x-auto mt-10">
                 <table className="table table-zebra w-full border-collapse border border-base-300">
@@ -171,7 +174,12 @@ const MyParcels = () => {
 
                                         {
                                             parcel.paymentStatus === "paid" ?
-                                                <span className="text-green-500 font-extrabold">Paid</span>
+                                                <span className="text-green-500 font-bold">
+                                                    <div className="badge badge-soft badge-success">
+                                                        Paid
+
+                                                    </div>
+                                                </span>
                                                 :
 
                                                 <button onClick={() => handlePayment(parcel)} className="btn btn-sm bg-primary">

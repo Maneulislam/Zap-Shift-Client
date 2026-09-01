@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Register = () => {
 
@@ -50,7 +51,7 @@ const Register = () => {
                         const userInfo = {
                             email: data.email,
                             displayName: data.name,
-                            photo: photoURL
+                            photoURL: photoURL
                         }
                         instanceAxios.post('/users', userInfo)
                             .then(res => {
@@ -80,6 +81,12 @@ const Register = () => {
             })
             .catch((error) => {
                 console.log(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed',
+                    text: error.message
+                });
+
             });
     };
 
@@ -258,7 +265,7 @@ const Register = () => {
                     className="btn w-full min-h-8 h-8 rounded-md bg-[#e9edf3] hover:bg-[#dfe4eb] border-none text-black shadow-none text-xs font-bold"
                 >
                     <FcGoogle className="text-base" />
-                    Register with google
+                    Register with Google
                 </button>
 
             </div>

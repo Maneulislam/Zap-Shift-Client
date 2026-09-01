@@ -175,7 +175,7 @@ const Login = () => {
                     className="btn w-full min-h-8 h-8 rounded-md bg-[#e9edf3] hover:bg-[#dfe4eb] border-none text-black shadow-none text-xs font-bold"
                 >
                     <FcGoogle className="text-base" />
-                    Login with google
+                    Login with Google
                 </button>
 
             </div>

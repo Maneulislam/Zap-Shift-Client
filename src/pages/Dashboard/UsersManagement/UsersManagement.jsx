@@ -67,7 +67,31 @@ const UsersManagement = () => {
 
     return (
         <div>
-            <h2>Manage users: {users.length}</h2>
+
+
+            {/* Total */}
+            <div className="card card-side bg-base-300 shadow-sm w-52 px-5 m-6">
+                <figure>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="36"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-land-plot-icon lucide-land-plot"
+                    >
+                        <path d="M17.925 20.056a6 6 0 0 0-11.851.001" /><circle cx="12" cy="11" r="4" /><circle cx="12" cy="12" r="10" />
+                    </svg>
+                </figure>
+                <div className="card-body flex-1 items-center">
+                    <h2 className="text-sm">Total Users</h2>
+                    <p className="text-2xl font-bold">{users.length}</p>
+                </div>
+            </div>
 
 
 
@@ -103,18 +127,19 @@ const UsersManagement = () => {
                                     <td className="align-middle border-r border-base-300">{user.displayName}</td>
                                     <td className="align-middle border-r border-base-300">{user.email}</td>
 
-                                    <td className="align-middle border-r border-base-300">{user.role}</td>
+                                    <td
+                                        className={` align-middle border-r border-base-300 ${user.role === 'admin'
+                                            ? ' badge-success'
+                                            : user.role === 'user'
+                                                ? 'text-black'
+                                                : 'badge-info'
+                                            }`}
+                                    >
+                                        <div className="badge badge-soft">{user.role}</div>
 
-                                    <td className="align-middle border-r border-base-300">
-                                        {new Date(user.createdAt).toLocaleString("en-GB", {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric",
-                                            hour: "2-digit",
-                                            minute: "2-digit",
-                                            hour12: true,
-                                        })}
                                     </td>
+
+
 
                                     <td className="align-middle space-x-4">
                                         {
@@ -129,6 +154,18 @@ const UsersManagement = () => {
 
                                                 </button>
                                         }
+                                    </td>
+
+
+                                    <td className="align-middle border-r border-base-300">
+                                        {new Date(user.createdAt).toLocaleString("en-GB", {
+                                            day: "2-digit",
+                                            month: "short",
+                                            year: "numeric",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            hour12: true,
+                                        })}
                                     </td>
 
 
