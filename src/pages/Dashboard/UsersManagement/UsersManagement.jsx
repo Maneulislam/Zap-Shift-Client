@@ -32,7 +32,7 @@ const UsersManagement = () => {
         }).then((result) => {
             if (result.isConfirmed)
 
-                instanceAxios.patch(`/users/${user._id}`, roleInfo)
+                instanceAxios.patch(`/users/${user._id}/role`, roleInfo)
                     .then(res => {
                         if (res.data.modifiedCount) {
 

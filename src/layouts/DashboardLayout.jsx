@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import { NavLink, Outlet } from "react-router";
 import Logo from "../components/Logo/Logo";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+
+    const { role } = useRole();
 
     const drawerInputRef = useRef(null);
 
@@ -144,35 +147,40 @@ const DashboardLayout = () => {
 
 
 
-                        <li>
-                            <NavLink
-                                to="/dashboard/approve-riders"
-                                onClick={closeDrawer}
-                                className={navLinkClass}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
-                                    <path d="m18 14-1-3" /><path d="m3 9 6 2a2 2 0 0 1 2-2h2a2 2 0 0 1 1.99 1.81" /><path d="M8 17h3a1 1 0 0 0 1-1 6 6 0 0 1 6-6 1 1 0 0 0 1-1v-.75A5 5 0 0 0 17 5" /><circle cx="19" cy="17" r="3" /><circle cx="5" cy="17" r="3" />
-                                </svg>
-                                <span className="text-base">Approve Riders</span>
-                            </NavLink>
-                        </li>
+                        {
+                            role === 'admin' &&
+                            <>
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/approve-riders"
+                                        onClick={closeDrawer}
+                                        className={navLinkClass}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
+                                            <path d="m18 14-1-3" /><path d="m3 9 6 2a2 2 0 0 1 2-2h2a2 2 0 0 1 1.99 1.81" /><path d="M8 17h3a1 1 0 0 0 1-1 6 6 0 0 1 6-6 1 1 0 0 0 1-1v-.75A5 5 0 0 0 17 5" /><circle cx="19" cy="17" r="3" /><circle cx="5" cy="17" r="3" />
+                                        </svg>
+                                        <span className="text-base">Approve Riders</span>
+                                    </NavLink>
+                                </li>
 
 
 
 
-                        <li>
-                            <NavLink
-                                to="/dashboard/users-management"
-                                onClick={closeDrawer}
-                                className={navLinkClass}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" />
-                                </svg>
-                                <span className="text-base">Users Management</span>
-                            </NavLink>
-                        </li>
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/users-management"
+                                        onClick={closeDrawer}
+                                        className={navLinkClass}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="size-7">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" />
+                                        </svg>
+                                        <span className="text-base">Users Management</span>
+                                    </NavLink>
+                                </li>
 
+                            </>
+                        }
 
 
 

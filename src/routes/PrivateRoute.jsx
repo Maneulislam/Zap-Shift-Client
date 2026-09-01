@@ -1,3 +1,4 @@
+import Loader from '../components/Loading/Loader';
 import useAuth from '../hooks/useAuth';
 import { Navigate, useLocation } from 'react-router';
 
@@ -9,7 +10,7 @@ const PrivateRoute = ({ children }) => {
 
 
     if (loading) {
-        return <span className="loading loading-bars loading-xl"></span>;
+        return <Loader></Loader>;
     }
 
     if (!user) {
