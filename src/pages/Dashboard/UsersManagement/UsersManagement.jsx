@@ -1,18 +1,69 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { FaUserShield } from "react-icons/fa";
+import { FiShieldOff } from "react-icons/fi";
 
 const UsersManagement = () => {
 
     const instanceAxios = useAxiosSecure();
 
-    const { data: users = [] } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['/users'],
         queryFn: async () => {
             const res = await instanceAxios.get('/users');
             return res.data;
         }
     })
-    console.log(users);
+
+
+    const handleRole = (user, role) => {
+        const roleInfo = { role: role, email: user.email };
+
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: `${user.role === 'admin' ? `${user.displayName} remove Admin?` : `${user.displayName} make Admin?`}`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: `${user.role === 'admin' ? 'Remove Admin' : 'Make Admin'}`
+        }).then((result) => {
+            if (result.isConfirmed)
+
+                instanceAxios.patch(`/users/${user._id}`, roleInfo)
+                    .then(res => {
+                        if (res.data.modifiedCount) {
+
+                            refetch();
+
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: `${user.role === 'admin' ? `${user.displayName} Admin removed successfully` : `${user.displayName} Admin created successfully`}`,
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+
+                        }
+
+                    })
+        });
+    }
+
+
+
+    const makeAdmin = user => {
+        handleRole(user, 'admin');
+    }
+
+    const removeAdmin = user => {
+        handleRole(user, 'user');
+    }
+
+
+
 
     return (
         <div>
@@ -29,6 +80,7 @@ const UsersManagement = () => {
                             <th className="align-middle text-center border-r border-base-300">Name</th>
                             <th className="align-middle text-center border-r border-base-300">Email</th>
                             <th className="align-middle text-center border-r border-base-300">Role</th>
+                            <th className="align-middle text-center border-r border-base-300">Admin Action</th>
                             <th className="align-middle text-center border-r border-base-300">Time</th>
 
                         </tr>
@@ -62,6 +114,21 @@ const UsersManagement = () => {
                                             minute: "2-digit",
                                             hour12: true,
                                         })}
+                                    </td>
+
+                                    <td className="align-middle space-x-4">
+                                        {
+                                            user.role === 'admin' ?
+                                                <button onClick={() => removeAdmin(user)} className="btn btn-square hover:bg-primary bg-red-600">
+                                                    <FiShieldOff />
+                                                </button>
+                                                :
+
+                                                <button onClick={() => makeAdmin(user)} className="btn btn-square hover:bg-primary">
+                                                    <FaUserShield />
+
+                                                </button>
+                                        }
                                     </td>
 
 
