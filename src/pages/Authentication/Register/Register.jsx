@@ -120,7 +120,7 @@ const Register = () => {
                 console.log(error);
             })
 
-        navigate('/')
+
     };
 
     return (

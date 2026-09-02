@@ -3,15 +3,17 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaUserShield } from "react-icons/fa";
 import { FiShieldOff } from "react-icons/fi";
+import { useState } from "react";
 
 const UsersManagement = () => {
 
     const instanceAxios = useAxiosSecure();
+    const [search, setSearch] = useState('');
 
     const { data: users = [], refetch } = useQuery({
-        queryKey: ['/users'],
+        queryKey: ['/users', search],
         queryFn: async () => {
-            const res = await instanceAxios.get('/users');
+            const res = await instanceAxios.get(`/users?search=${search}`);
             return res.data;
         }
     })
@@ -52,6 +54,8 @@ const UsersManagement = () => {
         });
     }
 
+    console.log(users);
+
 
 
     const makeAdmin = user => {
@@ -70,7 +74,7 @@ const UsersManagement = () => {
 
 
             {/* Total */}
-            <div className="card card-side bg-base-300 shadow-sm w-52 px-5 m-6">
+            <div className="card card-side bg-base-300 shadow-sm w-52 px-5  ">
                 <figure>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +99,55 @@ const UsersManagement = () => {
 
 
 
-            <div className="overflow-x-auto mt-10">
+            {/* Search */}
+            <div className="w-full max-w-md mt-10">
+                <label className="input bg-gray-100 rounded-3xl relative flex items-center w-full pr-24 overflow-hidden focus-within:outline-none">
+                    <svg
+                        className="h-5 w-5 opacity-60 ml-1 flex-shrink-0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="8"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                        />
+                        <path
+                            d="m21 21-4.3-4.3"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
+                    </svg>
+
+                    <input
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="bg-transparent grow border-none focus:ring-0 text-sm md:text-base px-2 py-2 outline-none"
+                        name='location'
+                        type="search"
+                        placeholder="Search user"
+                        required
+                    />
+
+                    <button
+
+                        type="submit"
+                        className="btn rounded-full bg-primary text-black border-none absolute right-1 top-1 bottom-1 px-5 min-h-0 h-auto"
+                    >
+                        Search
+                    </button>
+                </label>
+            </div>
+
+
+
+
+            {/* Table */}
+            <div className="overflow-x-auto mt-7">
                 <table className="table table-zebra w-full border-collapse border border-base-300">
                     <thead>
                         <tr className="bg-base-200 text-center align-middle border-b border-base-300">
@@ -118,16 +170,20 @@ const UsersManagement = () => {
                                     <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
 
 
+
+
                                     <td className="align-middle border-r border-base-300">
                                         <div className="w-12 h-12">
                                             {user?.photoURL ? (
                                                 <img
                                                     src={user.photoURL}
                                                     alt={user?.displayName || "User"}
+                                                    referrerPolicy="no-referrer"
                                                     className="w-12 h-12 rounded-full object-cover"
                                                     onError={(e) => {
                                                         e.currentTarget.style.display = "none";
-                                                        e.currentTarget.nextElementSibling.style.display = "flex";
+                                                        e.currentTarget.nextElementSibling.classList.remove("hidden");
+                                                        e.currentTarget.nextElementSibling.classList.add("flex");
                                                     }}
                                                 />
                                             ) : null}
