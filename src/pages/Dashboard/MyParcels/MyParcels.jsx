@@ -20,6 +20,7 @@ const MyParcels = () => {
 
 
 
+
     const handleView = async (id) => {
         try {
             const res = await instanceAxios.get(`/parcels/${id}`);
@@ -37,10 +38,20 @@ const MyParcels = () => {
                     <p><strong>Receiver Region:</strong> ${parcel.receiverRegion}</p>
                     <p><strong>Receiver District:</strong> ${parcel.receiverDistrict}</p>
                     <p><strong>Document Type:</strong> ${parcel.docType}</p>
-                    
                     <p><strong>Weight:</strong> ${parcel.parcelWeight} kg</p>
-                    <p><strong>Amount:</strong> ${parcel.cost} Taka</p>
-                    <p><strong>Created At:</strong> ${new Date(parcel.createdAt).toLocaleString("en-GB")}</p>
+                    <p><strong>Amount:</strong> $${parcel.cost}</p>
+                    <p><strong>Delivery Status:</strong> ${parcel.deliveryStatus}</p>
+                    <p><strong>Tracking ID:</strong> ${parcel.trackingId}</p>
+                    <p><strong>Transaction ID:</strong> ${parcel.transactionId}</p>
+                    <p><strong>Created At:</strong> ${new Date(parcel.createdAt).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                })}</p>
+
                 </div>
             `,
                 showCloseButton: true,
@@ -153,9 +164,9 @@ const MyParcels = () => {
                         <tr className="bg-base-200 text-center align-middle border-b border-base-300">
                             <th className="align-middle text-center border-r border-base-300">#</th>
                             <th className="align-middle text-center border-r border-base-300">Parcel Name</th>
-                            <th className="align-middle text-center border-r border-base-300">Weight</th>
                             <th className="align-middle text-center border-r border-base-300">Payment</th>
                             <th className="align-middle text-center border-r border-base-300">Delivery Status</th>
+                            <th className="align-middle text-center border-r border-base-300">Tracking ID</th>
                             <th className="align-middle text-center border-r border-base-300">Amount</th>
                             <th className="align-middle text-center border-r border-base-300">Time</th>
                             <th className="align-middle text-center">Actions</th>
@@ -168,7 +179,7 @@ const MyParcels = () => {
                                 <tr key={parcel._id} className="text-center align-middle border-b border-base-300">
                                     <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
                                     <td className="align-middle border-r border-base-300">{parcel.parcelName}</td>
-                                    <td className="align-middle border-r border-base-300">{parcel.parcelWeight}</td>
+
 
                                     <td className="align-middle border-r border-base-300">
 
@@ -191,9 +202,11 @@ const MyParcels = () => {
 
                                     </td>
 
-                                    <td className="align-middle border-r border-base-300">{parcel.receiverEmail}</td>
+                                    <td className="align-middle border-r border-base-300">{parcel.deliveryStatus}</td>
 
-                                    <td className="align-middle border-r border-base-300">{parcel.cost}</td>
+                                    <td className="align-middle border-r border-base-300">{parcel.trackingId}</td>
+
+                                    <td className="align-middle border-r border-base-300">${parcel.cost}</td>
                                     <td className="align-middle border-r border-base-300">
                                         {new Date(parcel.createdAt).toLocaleString("en-GB", {
                                             day: "2-digit",

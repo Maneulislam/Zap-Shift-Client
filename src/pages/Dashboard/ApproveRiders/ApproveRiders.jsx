@@ -112,8 +112,14 @@ const ApproveRiders = () => {
                     <p><strong>Bike Registration:</strong> ${rider.bikeRegistration}</p>
                     <p><strong>About Yourself:</strong> ${rider.aboutYourself}</p>
                     <p><strong>Status:</strong> ${rider.status}</p>
-                    <p><strong>Role:</strong> ${rider.role}</p>
-                    <p><strong>Created At:</strong> ${new Date(rider.createdAt).toLocaleString("en-GB")}</p>
+                    <p><strong>Created At:</strong> ${new Date(rider.createdAt).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                })}</p>
                 </div>
             `,
                 showCloseButton: true,
@@ -174,8 +180,8 @@ const ApproveRiders = () => {
                             <th className="align-middle text-center border-r border-base-300">Name</th>
                             <th className="align-middle text-center border-r border-base-300">Email</th>
                             <th className="align-middle text-center border-r border-base-300">District</th>
-                            <th className="align-middle text-center border-r border-base-300">Status</th>
-                            {/* <th className="align-middle text-center border-r border-base-300">Amount</th>*/}
+                            <th className="align-middle text-center border-r border-base-300">Application Status</th>
+                            <th className="align-middle text-center border-r border-base-300">Work Status</th>
                             <th className="align-middle text-center border-r border-base-300">Time</th>
                             <th className="align-middle text-center">Actions</th>
                         </tr>
@@ -202,6 +208,19 @@ const ApproveRiders = () => {
                                         <div className="badge badge-soft">{rider.status}</div>
 
                                     </td>
+
+
+                                    <td className="align-middle border-r border-base-300 text-center">
+                                        <div
+                                            className={`inline-flex items-center justify-center ${rider.workStatus === 'available'
+                                                ? 'badge badge-soft badge-success'
+                                                : 'text-black'
+                                                }`}
+                                        >
+                                            {rider.workStatus}
+                                        </div>
+                                    </td>
+
 
                                     <td className="align-middle border-r border-base-300">
                                         {new Date(rider.createdAt).toLocaleString("en-GB", {

@@ -58,11 +58,12 @@ const PaymentHistory = () => {
                         <tr className="bg-base-200 text-center align-middle border-b border-base-300">
                             <th className="align-middle text-center border-r border-base-300">#</th>
                             <th className="align-middle text-center border-r border-base-300">Amount</th>
-                            <th className="align-middle text-center border-r border-base-300">Paid Time</th>
-                            <th className="align-middle text-center border-r border-base-300">Transaction</th>
-                            <th className="align-middle text-center border-r border-base-300">Tracking Number</th>
 
-                            {/* <th className="align-middle text-center">Actions</th> */}
+                            <th className="align-middle text-center border-r border-base-300">Transaction ID</th>
+                            <th className="align-middle text-center border-r border-base-300">Tracking ID</th>
+                            <th className="align-middle text-center border-r border-base-300">Payment Time</th>
+
+
                         </tr>
                     </thead>
 
@@ -72,6 +73,15 @@ const PaymentHistory = () => {
                                 <tr key={payment._id} className="text-center align-middle border-b border-base-300">
                                     <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
                                     <td className="align-middle border-r border-base-300">${payment.amount}</td>
+
+
+
+
+
+                                    <td className="align-middle border-r border-base-300">{payment.transactionId}</td>
+
+                                    <td className="align-middle border-r border-base-300">{payment.trackingId}</td>
+
 
 
                                     <td className="align-middle border-r border-base-300">
@@ -84,13 +94,6 @@ const PaymentHistory = () => {
                                             hour12: true,
                                         })}
                                     </td>
-
-
-
-
-                                    <td className="align-middle border-r border-base-300">{payment.transactionId}</td>
-
-                                    <td className="align-middle border-r border-base-300">{payment.trackingId}</td>
 
 
 
