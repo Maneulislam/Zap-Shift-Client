@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { FaUserCheck } from 'react-icons/fa6';
+import { FaUserCheck, FaUserXmark } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
-import { IoPersonRemoveSharp } from 'react-icons/io5';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { FiSearch } from 'react-icons/fi';
 
@@ -214,7 +213,10 @@ const ApproveRiders = () => {
                                         <div
                                             className={`inline-flex items-center justify-center ${rider.workStatus === 'available'
                                                 ? 'badge badge-soft badge-success'
-                                                : 'text-black'
+                                                : rider.workStatus === 'in-delivery' ?
+                                                    'badge badge-soft badge-info'
+                                                    :
+                                                    'text-black'
                                                 }`}
                                         >
                                             {rider.workStatus}
@@ -235,22 +237,22 @@ const ApproveRiders = () => {
 
                                     <td className="align-middle space-x-2">
 
-                                        <button onClick={() => handleView(rider._id)} className="btn btn-square hover:bg-primary">
+                                        <button onClick={() => handleView(rider._id)} title="View details" className="btn btn-square hover:bg-primary">
                                             <FiSearch size={20} />
 
                                         </button>
 
 
-                                        <button onClick={() => handleApproval(rider)} className="btn btn-square hover:bg-primary">
+                                        <button onClick={() => handleApproval(rider)} title="Accept Request" className="btn btn-square hover:bg-primary">
                                             <FaUserCheck size={20} />
 
                                         </button>
 
-                                        <button onClick={() => { handleRejection(rider) }} className="btn btn-square hover:bg-primary">
-                                            <IoPersonRemoveSharp size={20} />
+                                        <button onClick={() => { handleRejection(rider) }} title="Reject Request" className="btn btn-square hover:bg-primary">
+                                            <FaUserXmark size={20} />
                                         </button>
 
-                                        <button onClick={() => handleRiderDelete(rider._id)} className="btn btn-square hover:bg-primary">
+                                        <button onClick={() => handleRiderDelete(rider._id)} title="Remove Rider" className="btn btn-square hover:bg-primary">
                                             <RiDeleteBin5Line size={20} />
                                         </button>
                                     </td>

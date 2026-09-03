@@ -232,14 +232,14 @@ const MyParcels = () => {
                                     </td>
 
                                     <td className="align-middle space-x-4">
-                                        <button onClick={() => handleView(parcel._id)} className="btn btn-square hover:bg-primary">
-                                            <FiSearch />
+                                        <button onClick={() => handleView(parcel._id)} title="View Details" className="btn btn-square hover:bg-primary">
+                                            <FiSearch size={20} />
                                         </button>
 
 
 
-                                        <button onClick={() => handleDelete(parcel._id)} className="btn btn-square hover:bg-primary">
-                                            <RiDeleteBin5Line />
+                                        <button onClick={() => handleDelete(parcel._id)} title="Remove Parcels" className="btn btn-square hover:bg-primary">
+                                            <RiDeleteBin5Line size={20} />
                                         </button>
                                     </td>
                                 </tr>

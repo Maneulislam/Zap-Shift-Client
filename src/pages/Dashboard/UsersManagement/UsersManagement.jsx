@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaUserShield } from "react-icons/fa";
-import { FiShieldOff } from "react-icons/fi";
 import { useState } from "react";
+import { FaUserXmark } from "react-icons/fa6";
 
 const UsersManagement = () => {
 
@@ -98,51 +98,24 @@ const UsersManagement = () => {
             </div>
 
 
-
             {/* Search */}
             <div className="w-full max-w-md mt-10">
-                <label className="input bg-gray-100 rounded-3xl relative flex items-center w-full pr-24 overflow-hidden focus-within:outline-none">
-                    <svg
-                        className="h-5 w-5 opacity-60 ml-1 flex-shrink-0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                    >
-                        <circle
-                            cx="11"
-                            cy="11"
-                            r="8"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                        />
-                        <path
-                            d="m21 21-4.3-4.3"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                        />
+                <label className="relative flex items-center w-full pr-24 rounded-sm border-2 border-base-300 focus-within:border-primary focus-within:outline-none focus-within:ring-0">
+
+                    <svg className="h-5 w-5 opacity-60 ml-3 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" strokeWidth="2.5" />
+                        <path d="m21 21-4.3-4.3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
                     </svg>
 
-                    <input
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="bg-transparent grow border-none focus:ring-0 text-sm md:text-base px-2 py-2 outline-none"
-                        name='location'
-                        type="search"
-                        placeholder="Search user"
-                        required
-                    />
 
-                    <button
+                    <input onChange={(e) => setSearch(e.target.value)} className="bg-transparent grow border-none text-sm md:text-base px-2 py-2 outline-none focus:outline-none focus:ring-0" name="location" type="search" placeholder="Search user" />
 
-                        type="submit"
-                        className="btn rounded-full bg-primary text-black border-none absolute right-1 top-1 bottom-1 px-5 min-h-0 h-auto"
-                    >
+
+                    <button type="submit" className="btn bg-primary text-black border-none absolute right-1 top-1 bottom-1 px-5 min-h-0 h-auto">
                         Search
                     </button>
                 </label>
             </div>
-
 
 
 
@@ -220,13 +193,16 @@ const UsersManagement = () => {
                                     <td className="align-middle space-x-4">
                                         {
                                             user.role === 'admin' ?
-                                                <button onClick={() => removeAdmin(user)} className="btn btn-square hover:bg-primary bg-red-600">
-                                                    <FiShieldOff />
+                                                <button onClick={() => removeAdmin(user)}
+                                                    title="Remove Admin"
+                                                    className="btn btn-square hover:bg-primary bg-red-600">
+                                                    <FaUserXmark size={20} />
+
                                                 </button>
                                                 :
 
-                                                <button onClick={() => makeAdmin(user)} className="btn btn-square hover:bg-primary">
-                                                    <FaUserShield />
+                                                <button onClick={() => makeAdmin(user)} title="Make Admin" className="btn btn-square hover:bg-primary">
+                                                    <FaUserShield size={25} />
 
                                                 </button>
                                         }
