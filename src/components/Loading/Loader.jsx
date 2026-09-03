@@ -13,7 +13,7 @@ const Loader = () => {
       </div>
 
       <div className="mt-8 flex flex-col items-center gap-2 text-center">
-        <h2 className="text-black text-lg sm:text-xl font-semibold tracking-wider uppercase">
+        <h2 className="text-black text-lg sm:text-xl font-extrabold tracking-wider uppercase">
           Loading
           <span className="inline-flex ml-1">
             <span className="animate-[bounce_1s_infinite_100ms]">.</span>

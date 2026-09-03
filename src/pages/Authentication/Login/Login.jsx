@@ -3,8 +3,12 @@ import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useState } from "react";
 
 const Login = () => {
+
+    const [loginError, setLoginError] = useState("");
+    const [googleError, setGoogleError] = useState("");
 
     const {
         register,
@@ -28,11 +32,26 @@ const Login = () => {
         signInUser(data.email, data.password)
             .then(result => {
                 console.log(result);
+                navigate(location.state || '/dashboard')
             })
+
             .catch(error => {
                 console.log(error);
+                if (error.code === "auth/invalid-credential") {
+                    setLoginError("Invalid email or password.");
+                } else if (error.code === "auth/user-not-found") {
+                    setLoginError("No account found with this email.");
+                } else if (error.code === "auth/wrong-password") {
+                    setLoginError("Incorrect password.");
+                } else if (error.code === "auth/invalid-email") {
+                    setLoginError("Please enter a valid email address.");
+                } else if (error.code === "auth/user-disabled") {
+                    setLoginError("This account has been disabled.");
+                } else {
+                    setLoginError(error.message || "Login failed. Please try again.");
+                }
             })
-        navigate(location.state || '/dashboard')
+
 
     };
 
@@ -66,6 +85,16 @@ const Login = () => {
             })
             .catch(error => {
                 console.log("Google login error:", error);
+
+                if (error.code === "auth/popup-closed-by-user") {
+                    setGoogleError("Google login was cancelled.");
+                } else if (error.code === "auth/popup-blocked") {
+                    setGoogleError("Google login popup was blocked.");
+                } else {
+                    setGoogleError(
+                        error.message || "Google login failed. Please try again."
+                    );
+                }
             });
     };
 
@@ -129,6 +158,11 @@ const Login = () => {
                         {errors.password?.type === 'required' && <span className="text-red-500">Password is required</span>}
 
 
+                        {loginError && (
+                            <div className="text-red-500 text-sm font-medium">
+                                {loginError}
+                            </div>
+                        )}
                     </div>
 
                     <div className="pt-0">
@@ -168,6 +202,12 @@ const Login = () => {
 
                     <div className="flex-1 h-px bg-gray-200"></div>
                 </div>
+
+                {googleError && (
+                    <div className="text-red-500 text-sm font-medium mb-2">
+                        {googleError}
+                    </div>
+                )}
 
                 <button
                     type="button"

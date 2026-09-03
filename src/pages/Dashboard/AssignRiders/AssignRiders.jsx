@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const AssignRiders = () => {
-
+    const [selectedParcel, setSelectedParcel] = useState(null);
     const instanceAxios = useAxiosSecure();
     const riderModalRef = useRef();
 
@@ -16,8 +16,33 @@ const AssignRiders = () => {
     })
 
 
+    const { data: riders = [] } = useQuery({
+        queryKey: ['riders', selectedParcel?.senderDistrict, 'available'],
+        enabled: !!selectedParcel,
+        queryFn: async () => {
+            const res = await instanceAxios.get(`/riders?status=approved&district=${selectedParcel.senderDistrict}&workStatus=available`);
+            return res.data;
+        }
+    })
+
+
+    const handleAssignRider = rider => {
+
+        const riderAssignInfo = {
+            id: rider._id,
+            riderName: rider.name,
+            riderEmail: rider.email,
+            parcelId: selectedParcel._id
+        }
+
+        instanceAxios.patch(``, riderAssignInfo)
+    }
+
+
 
     const openRiderModal = parcel => {
+        setSelectedParcel(parcel);
+        console.log(parcel);
         riderModalRef.current.showModal();
     }
 
@@ -81,7 +106,7 @@ const AssignRiders = () => {
                                         ${parcel.cost}
                                     </td>
 
-                                    <td className="align-middle border-r border-base-300">{parcel.receiverDistrict}</td>
+                                    <td className="align-middle border-r border-base-300">{parcel.senderDistrict}</td>
 
                                     <td className="align-middle border-r border-base-300">
                                         {new Date(parcel.createdAt).toLocaleString("en-GB", {
@@ -96,7 +121,7 @@ const AssignRiders = () => {
 
                                     <td className="align-middle space-x-4">
 
-                                        <button onClick={() => openRiderModal(parcel._id)} className="btn  bg-primary">
+                                        <button onClick={() => openRiderModal(parcel)} className="btn  bg-primary">
                                             Assign Rider
                                         </button>
                                     </td>
@@ -114,13 +139,51 @@ const AssignRiders = () => {
             {/* Modal */}
 
 
-
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
-
             <dialog ref={riderModalRef} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Press ESC key or click the button below to close</p>
+
+
+                    {/* Modal Table */}
+
+                    <div className="overflow-x-auto mt-10">
+                        <table className="table table-zebra w-full border-collapse border border-base-300">
+                            <thead>
+                                <tr className="bg-base-200 text-center align-middle border-b border-base-300">
+                                    <th className="align-middle text-center border-r border-base-300">#</th>
+                                    <th className="align-middle text-center border-r border-base-300">Rider Name</th>
+                                    <th className="align-middle text-center border-r border-base-300">Email</th>
+                                    <th className="align-middle text-center">Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {
+                                    riders.map((rider, index) => (
+                                        <tr key={rider._id} className="text-center align-middle border-b border-base-300">
+                                            <th className="align-middle text-center border-r border-base-300">{index + 1}</th>
+                                            <td className="align-middle border-r border-base-300">{rider.name}</td>
+
+
+                                            <td className="align-middle border-r border-base-300 max-w-45">
+                                                <div className="break-all">
+                                                    {rider.email}
+                                                </div>
+                                            </td>
+
+
+                                            <td className="align-middle space-x-4">
+
+                                                <button onClick={() => handleAssignRider(rider)} className="btn  bg-primary">
+                                                    Assign
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div className="modal-action">
                         <form method="dialog">
                             {/* if there is a button in form, it will close the modal */}
