@@ -1,13 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useRef, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const AssignRiders = () => {
     const [selectedParcel, setSelectedParcel] = useState(null);
     const instanceAxios = useAxiosSecure();
+    const queryClient = useQueryClient();
     const riderModalRef = useRef();
 
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
             const res = await instanceAxios.get('parcels?deliveryStatus=pending-pickup');
@@ -29,13 +31,38 @@ const AssignRiders = () => {
     const handleAssignRider = rider => {
 
         const riderAssignInfo = {
-            id: rider._id,
+            riderId: rider._id,
             riderName: rider.name,
             riderEmail: rider.email,
             parcelId: selectedParcel._id
         }
 
-        instanceAxios.patch(``, riderAssignInfo)
+        instanceAxios.patch(`parcels/${selectedParcel._id}`, riderAssignInfo)
+            .then(res => {
+
+                if (res.data.modifiedCount) {
+
+                    // Refetch available riders
+                    queryClient.invalidateQueries({
+                        queryKey: ['riders', selectedParcel.senderDistrict, 'available']
+                    });
+
+
+
+
+                    riderModalRef.current.close();
+
+                    parcelsRefetch();
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Rider has been assigned`,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            })
     }
 
 
@@ -122,7 +149,7 @@ const AssignRiders = () => {
                                     <td className="align-middle space-x-4">
 
                                         <button onClick={() => openRiderModal(parcel)} className="btn  bg-primary">
-                                            Assign Rider
+                                            Find Riders
                                         </button>
                                     </td>
                                 </tr>
