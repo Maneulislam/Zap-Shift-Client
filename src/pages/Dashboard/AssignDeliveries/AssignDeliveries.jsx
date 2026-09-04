@@ -3,20 +3,45 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { PiUserCircleCheckBold } from 'react-icons/pi';
 import { ImCross } from 'react-icons/im';
+import Swal from 'sweetalert2';
 
 const AssignDeliveries = () => {
 
     const { user } = useAuth();
     const instanceAxios = useAxiosSecure();
 
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['parcels', user.email, 'driver-assigned'],
         queryFn: async () => {
             const res = await instanceAxios.get(`/parcels/rider?riderEmail=${user.email}&deliveryStatus=driver-assigned`);
             return res.data;
         }
     })
-    console.log(parcels);
+
+
+    const handleAcceptDelivery = parcel => {
+        const updateInfo = { deliveryStatus: 'rider-arriving' };
+
+        instanceAxios.patch(`/parcels/${parcel._id}/status`, updateInfo)
+            .then(res => {
+
+                if (res.data.modifiedCount) {
+
+                    refetch();
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Thank you for accepting`,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            })
+    }
+
+
+
 
     return (
         <div>
@@ -59,7 +84,7 @@ const AssignDeliveries = () => {
                             <th className="align-middle text-center border-r border-base-300">Tracking ID</th>
                             <th className="align-middle text-center border-r border-base-300">Amount</th>
                             <th className="align-middle text-center border-r border-base-300">Time</th>
-                            <th className="align-middle text-center">Actions</th>
+                            <th className="align-middle text-center">Confirm Actions</th>
                         </tr>
                     </thead>
 
@@ -101,19 +126,38 @@ const AssignDeliveries = () => {
                                         })}
                                     </td>
 
+
+
                                     <td className="align-middle space-x-4">
-                                        <button className="btn btn-square hover:bg-primary" title="Accept">
-                                            <PiUserCircleCheckBold size={30} />
 
-                                        </button>
+                                        {
+                                            parcel.deliveryStatus === 'driver-assigned' ? <>
+                                                <button onClick={() => handleAcceptDelivery(parcel)} className="btn btn-square hover:bg-primary" title="Accept">
+                                                    <PiUserCircleCheckBold size={30} />
+
+                                                </button>
+
+                                                <button className="btn btn-square hover:bg-primary" title="Reject" >
+                                                    <ImCross size={22} />
+
+                                                </button>
+                                            </>
+                                                :
+                                                <>
+                                                    <div
+                                                        className={` align-middle border-r border-base-300`}
+                                                    >
+                                                        <div className="badge badge-soft badge-success">Accepted</div>
+
+                                                    </div>
+                                                </>
+                                        }
 
 
 
-                                        <button className="btn btn-square hover:bg-primary" title="Reject" >
-                                            <ImCross size={22} />
-
-                                        </button>
                                     </td>
+
+
                                 </tr>
                             ))
                         }
