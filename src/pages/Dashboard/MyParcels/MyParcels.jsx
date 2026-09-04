@@ -205,11 +205,15 @@ const MyParcels = () => {
                                     <td className="align-middle border-r border-base-300">
                                         <div
                                             className={`
-                                                         ${parcel.deliveryStatus === 'driver-assigned'
+                                                         ${parcel.deliveryStatus === 'parcel-delivered'
                                                     ? 'badge badge-soft badge-success '
-                                                    : parcel.deliveryStatus === 'pending-pickup'
-                                                        ? 'badge badge-soft text-black'
-                                                        : ''
+                                                    : parcel.deliveryStatus === 'driver-assigned'
+                                                        ? 'badge badge-soft badge-info'
+                                                        : parcel.deliveryStatus === 'pending-pickup'
+                                                            ?
+                                                            'badge badge-soft text-black'
+                                                            :
+                                                            ''
                                                 }
                                                         `}
                                         >
